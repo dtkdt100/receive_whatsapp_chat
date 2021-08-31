@@ -1,5 +1,5 @@
 name: receive_whatsapp_chat
-description: A new Flutter plugin.
+description: A flutter plugin that enables flutter apps to receive sharing chats from WhatsApp.
 version: 0.0.1
 homepage: https://github.com/dtkdt100/receive_whatsapp_chat
 
