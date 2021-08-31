@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.whatsapp.receive_whatsapp_chat">
+    <application>
+        <activity android:name="com.whatsapp.receive_whatsapp_chat.ShareReceiverActivityWorker">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="*/*"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

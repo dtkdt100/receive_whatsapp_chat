@@ -1,0 +1,116 @@
+import 'package:receive_whatsapp_chat/models/message_content.dart';
+
+import 'fix_dates_utilities.dart';
+
+
+class ChatInfoUtilities {
+  static Map<String, dynamic> getChatInfo(List<String> chat) {
+    Map<String, dynamic> chatInfo = {};
+
+    List<String> names = [];
+    List<int> countNameMsgs = [];
+    List<MessageContent> msgContents = [];
+
+    for (int i = 1; i < chat.length; i++) {
+      MessageContent msgContent = _getMsgContentFromStringLine(chat[i]);
+      if (!names.contains(msgContent.senderId) && msgContent.senderId != null) {
+        names.add(msgContent.senderId!);
+        countNameMsgs.add(1);
+        msgContents.add(msgContent);
+      } else {
+        if (msgContent.senderId != null) {
+          //if (msgContent.msg!.length > 20) {
+          countNameMsgs[names.indexOf(msgContent.senderId!)]++;
+          msgContents.add(msgContent);
+          //}
+        }
+      }
+    }
+
+    chatInfo['msgsPerPerson'] = {};
+
+    names.remove(null);
+    for (int i = 0; i < names.length; i++) {
+      if (countNameMsgs[i] < 5) {
+      } else {
+        chatInfo['msgsPerPerson'][names[i]] =  countNameMsgs[i];
+      }
+    }
+
+    for (int i = 0; i < names.length; i++) {
+      if (countNameMsgs[i] < 5) {
+        names.removeAt(i);
+        countNameMsgs.removeAt(i);
+      }
+    }
+
+    chatInfo['names'] = names;
+    chatInfo['sizeOfChat'] = msgContents.length;
+    chatInfo['messages'] = msgContents;
+
+    return chatInfo;
+  }
+
+  static MessageContent _getMsgContentFromStringLine(String line) {
+    MessageContent nullMessageContent = MessageContent(senderId: null, msg: null);
+
+    if (line.split(' - ').length == 1) {
+      return nullMessageContent;
+    } else if (line.contains("Missed group video call")) {
+      return nullMessageContent;
+    }
+
+    String splitLineToTwo = line.split(' - ').last;
+    if (splitLineToTwo.split(': ').length == 1) {
+      return nullMessageContent;
+    }
+
+    String senderId = splitLineToTwo.split(': ')[0];
+    String msg = splitLineToTwo.split(': ')[1];
+
+    if (msg == "This message was deleted" ||
+        msg == "You deleted this message" ||
+        msg == "<Media omitted>") {
+      return nullMessageContent;
+    }
+
+    return MessageContent(
+      senderId: senderId,
+      msg: msg,
+      dateTime: _parseLineToDatetime(line),
+    );
+
+  }
+
+  static DateTime? _parseLineToDatetime(String line) {
+
+    if (line.split(' - ').length == 1) {
+      return null;
+    }
+
+    String splitLineToTwo = line.split(' - ').first;
+
+    List dateFromLine = splitLineToTwo.split(', ');
+
+    if (dateFromLine.length == 1) {
+      return null;
+    }
+
+    String? date;
+    String? hour;
+    try {
+      date = FixDateUtilities.dateStringOrganization(dateFromLine[0]);
+      hour = FixDateUtilities.hourStringOrganization(dateFromLine[1]);
+    } catch (e) {
+      return null;
+    }
+
+    DateTime datetime;
+    try {
+      datetime = DateTime.parse('$date $hour');
+    } catch (e) {
+      return null;
+    }
+    return datetime;
+  }
+}
