@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:receive_whatsapp_chat/models/chat_content.dart';
 import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
 
 void main() {

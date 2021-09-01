@@ -5,6 +5,8 @@ import 'package:receive_whatsapp_chat/share/share.dart';
 import 'chat_analyzer/chat_analyzer.dart';
 import 'models/chat_content.dart';
 
+export 'models/models.dart';
+
 ///I used Duarte Silveira share package. See: https://github.com/d-silveira/flutter-share.
 /// We could not use his package because we needed to perform changes and it wasn't sound null safety.
 /// There is a credit to him and there will be throughout the whole package.
