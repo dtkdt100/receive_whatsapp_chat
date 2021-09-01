@@ -5,6 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/chat_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/chat_content.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/share/share.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/share/share.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
