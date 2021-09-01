@@ -24,6 +24,7 @@ class ChatContent {
         'msgsPerPerson': msgsPerMember,
       };
 
+  /// We should parse also all the [MessageContent] toJson
   static List<Map<String, dynamic>> _listOfMessageContentsToJson(
       List<MessageContent> messages) {
     List<Map<String, dynamic>> messagesParsed = [];

@@ -31,6 +31,7 @@ class Share {
         path = '',
         shares = const [];
 
+  /// The type of our WhatsApp chat
   const Share.file(
       {this.mimeType = ShareType.typeFile,
       required this.title,

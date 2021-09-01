@@ -1,7 +1,6 @@
 import 'package:receive_whatsapp_chat/chat_analyzer/utilities/chat_info_utilities.dart';
 import 'package:receive_whatsapp_chat/models/chat_content.dart';
 
-
 class ChatAnalyzer {
   /// Analyze [List<String>] to [ChatContent]
   static ChatContent analyze(List<String> chat) {
@@ -21,8 +20,6 @@ class ChatAnalyzer {
   /// WhatsApp Chat with [Name of the chat] .txt
   /// The function spilt the name of the chat.
   static String _getChatName(List<String> chat) {
-    return chat.first.split(".txt").first
-        .split("WhatsApp Chat with ")
-        .last;
+    return chat.first.split(".txt").first.split("WhatsApp Chat with ").last;
   }
 }

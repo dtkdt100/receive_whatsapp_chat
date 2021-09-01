@@ -32,6 +32,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     super.initState();
   }
 
+  /// Enable the receiving
   void enableShareReceiving() {
     _shareReceiveSubscription ??=
         stream.receiveBroadcastStream().listen(_receiveShareInternal);
@@ -39,6 +40,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     debugPrint("enabled share receiving");
   }
 
+  /// Disable the receiving
   void disableShareReceiving() {
     if (_shareReceiveSubscription != null) {
       _shareReceiveSubscription!.cancel();

@@ -2,8 +2,8 @@ import 'package:receive_whatsapp_chat/models/message_content.dart';
 
 import 'fix_dates_utilities.dart';
 
-
 class ChatInfoUtilities {
+  /// chat info contains messages per member, members of the chat, messages, and size of the chat
   static Map<String, dynamic> getChatInfo(List<String> chat) {
     Map<String, dynamic> chatInfo = {};
 
@@ -19,10 +19,8 @@ class ChatInfoUtilities {
         msgContents.add(msgContent);
       } else {
         if (msgContent.senderId != null) {
-          //if (msgContent.msg!.length > 20) {
           countNameMsgs[names.indexOf(msgContent.senderId!)]++;
           msgContents.add(msgContent);
-          //}
         }
       }
     }
@@ -33,7 +31,7 @@ class ChatInfoUtilities {
     for (int i = 0; i < names.length; i++) {
       if (countNameMsgs[i] < 5) {
       } else {
-        chatInfo['msgsPerPerson'][names[i]] =  countNameMsgs[i];
+        chatInfo['msgsPerPerson'][names[i]] = countNameMsgs[i];
       }
     }
 
@@ -51,8 +49,10 @@ class ChatInfoUtilities {
     return chatInfo;
   }
 
+  /// Receive a String line and return from it [MessageContent]
   static MessageContent _getMsgContentFromStringLine(String line) {
-    MessageContent nullMessageContent = MessageContent(senderId: null, msg: null);
+    MessageContent nullMessageContent =
+        MessageContent(senderId: null, msg: null);
 
     if (line.split(' - ').length == 1) {
       return nullMessageContent;
@@ -79,11 +79,10 @@ class ChatInfoUtilities {
       msg: msg,
       dateTime: _parseLineToDatetime(line),
     );
-
   }
 
+  /// Receive a String line and return from it [DateTime], if it fails it returns null
   static DateTime? _parseLineToDatetime(String line) {
-
     if (line.split(' - ').length == 1) {
       return null;
     }
