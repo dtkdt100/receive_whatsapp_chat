@@ -121,6 +121,7 @@ class Share {
           return Share.file(path: received[pathString], title: '');
         }
     }
+    return null;
   }
 
   bool get isNull => mimeType == null;

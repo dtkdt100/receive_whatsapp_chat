@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a3ad0088-14dd-4d89-aebd-b78a3780c5d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/chat_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/chat_content.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/share/share.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/share/share.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +21,6 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_XL_API_29" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -33,13 +35,17 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/screenshots" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -53,6 +59,7 @@
       <recent name="C:\Users\dolev\AndroidStudioProjects\packages_2\receive_whatsapp_chat\lib" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -65,43 +72,5 @@
       <updated>1630400461448</updated>
     </task>
     <servers />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1630404764461">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630404764461" />
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1630421849866">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630421849866" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1630430418448">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630430418448" />
-    <state width="1491" height="81" key="GridCell.Tab.0.bottom" timestamp="1630519214995">
-      <screen x="1920" y="0" width="1536" height="832" />
-    </state>
-    <state width="1877" height="157" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630442197978" />
-    <state width="1491" height="81" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1630519214995" />
-    <state width="1491" height="81" key="GridCell.Tab.0.center" timestamp="1630519214995">
-      <screen x="1920" y="0" width="1536" height="832" />
-    </state>
-    <state width="1877" height="157" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630442197978" />
-    <state width="1491" height="81" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1630519214995" />
-    <state width="1491" height="81" key="GridCell.Tab.0.left" timestamp="1630519214995">
-      <screen x="1920" y="0" width="1536" height="832" />
-    </state>
-    <state width="1877" height="157" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630442197978" />
-    <state width="1491" height="81" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1630519214995" />
-    <state width="1491" height="81" key="GridCell.Tab.0.right" timestamp="1630519214995">
-      <screen x="1920" y="0" width="1536" height="832" />
-    </state>
-    <state width="1877" height="157" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630442197978" />
-    <state width="1491" height="81" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@1920.0.1536.832" timestamp="1630519214995" />
-    <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1630413666704">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="656" y="252" width="607" height="536" key="find.popup/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1630413666704" />
   </component>
 </project>
