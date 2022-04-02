@@ -3,6 +3,7 @@ import 'package:receive_whatsapp_chat/models/message_content.dart';
 import 'fix_dates_utilities.dart';
 
 class ChatInfoUtilities {
+  static RegExp _regExp = RegExp(r"\d\d/\d\d/\d\d\d\d,\s+\d\d:\d\d\s+-");
   /// chat info contains messages per member, members of the chat, messages, and size of the chat
   static Map<String, dynamic> getChatInfo(List<String> chat) {
     Map<String, dynamic> chatInfo = {};
@@ -60,13 +61,13 @@ class ChatInfoUtilities {
       return nullMessageContent;
     }
 
-    String splitLineToTwo = line.split(' - ').last;
+    String splitLineToTwo = line.split(_regExp).last;
     if (splitLineToTwo.split(': ').length == 1) {
       return nullMessageContent;
     }
 
     String senderId = splitLineToTwo.split(': ')[0];
-    String msg = splitLineToTwo.split(': ')[1];
+    String msg = splitLineToTwo.split(': ').sublist(1).join(': ');
 
     if (msg == "This message was deleted" ||
         msg == "You deleted this message" ||

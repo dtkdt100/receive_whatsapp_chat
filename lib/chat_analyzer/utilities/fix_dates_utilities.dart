@@ -3,6 +3,7 @@ class FixDateUtilities {
   static String hourStringOrganization(String hourFromLine) {
     String hour = hourFromLine.split(':')[0];
     String minute = hourFromLine.split(':')[1].split(' ')[0];
+    if (hourFromLine.split(' ').length == 1) return '$hour:$minute:00';
     if (hourFromLine.split(' ')[1] == 'PM') {
       hour = '${int.parse(hour) + 12}';
     } else {
@@ -13,7 +14,7 @@ class FixDateUtilities {
 
   /// Fixing a string date of whatsapp to a parsable dart date
   static String dateStringOrganization(String dateFromLine) {
-    List listOfMonthDayYear = dateFromLine.split('/');
+    List listOfMonthDayYear = dateFromLine.split(RegExp(r"/"));
     listOfMonthDayYear[0] = _fixMonthOrDayTo01(listOfMonthDayYear[0]);
     listOfMonthDayYear[1] = _fixMonthOrDayTo01(listOfMonthDayYear[1]);
     listOfMonthDayYear[2] = _fixYear20(listOfMonthDayYear[2]);
@@ -55,6 +56,7 @@ class FixDateUtilities {
   ///The year in Whatsapp are 22, where it should be 2022.
   ///This function added the 2 missing numbers (maybe if you are watching this it is 3!)
   static String _fixYear20(String year) {
+    if (year.length == 4) return year;
     String firstFirstTwoLetters = '${DateTime.now().year}'.substring(0, 2);
     return '$firstFirstTwoLetters$year';
   }

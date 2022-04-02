@@ -1,5 +1,11 @@
 package com.whatsapp.receive_whatsapp_chat;
 
+import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.IS_MULTIPLE;
+import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.PATH;
+import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TEXT;
+import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TITLE;
+import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TYPE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -14,24 +20,19 @@ import androidx.annotation.NonNull;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodChannel;
-
-import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.IS_MULTIPLE;
-import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.PATH;
-import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TEXT;
-import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TITLE;
-import static com.whatsapp.receive_whatsapp_chat.ReceiveWhatsappChatPlugin.TYPE;
 
 /**
  * main activity super, handles eventChannel sink creation
@@ -73,33 +74,37 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                             arrayList.add(c.getString(0));
                             arrayList.add(String.valueOf(c.getString(1)));
                             String textMsg = "";
-                            List<String> lines = new ArrayList<String>();
 
-                            for (String line; (line = r.readLine()) != null; ) {
+                            String currLine = null;//This is the current line (like my cursor)
+                            boolean firstIterationDone = false;//The first line will always contains the format, so I will always append it, from the second I will start making the checkings...
 
-                                lines.add(line);
-                                textMsg += line;
-                                int countSlash = textMsg.length() - textMsg.replaceAll("/", "").length();
-                                int countDot = textMsg.length() - textMsg.replaceAll("\\.", "").length();
-                                int countTwoDots = textMsg.length() - textMsg.replaceAll(":", "").length();
-                                boolean isSlash = textMsg.contains(" - ");
-                                boolean isComa = textMsg.contains(", ");
+                            // Now I can use some regex (I'm not really good at this stuff, I just used a Web Page: http://txt2re.com/)
+                            /* This regex will match the lines that contains the date in this format "29. Jan. 12:22", when I take a look at your file
+                            I can see that the "additional text of the message" does not contains any date, so I can use that as my point of separation*/
+                            String regex = "(\\d)(\\d)(/)(\\d)(\\d)(/)(\\d)(\\d)(\\d)(\\d)(,)(\\s+)(\\d)(\\d)(:)(\\d)(\\d)(\\s+)";
+                            //As part of using regex, I would like to create a Pattern to make the lines on the list match this expression
+                            Pattern wspLogDatePattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-                                if ((countSlash >= 2 || countDot >= 2) && countTwoDots >= 2 && isSlash && isComa) {
-                                    if (textMsg.contains("AM") || textMsg.contains("PM")) {
+                            //Use of the line separator of the O.S
+                            String lineSeparator = System.getProperty("line.separator");
+
+                            while ((currLine = r.readLine()) != null) {
+                                textMsg += currLine;
+                                if (!firstIterationDone) {
+                                    firstIterationDone = true;
+                                } else {
+                                    Matcher wspLogDateMatcher = wspLogDatePattern.matcher(currLine);
+
+                                    //The first time we will check if the second line has the pattern, if it does, we append a line separator
+                                    if (wspLogDateMatcher.find()) {
+                                        //It is a "normal" line
                                         arrayList.add(textMsg);
+                                        textMsg = "";
                                     } else {
-                                        try {
-                                            String splited = textMsg.split(" - ")[0].split(", ")[1];
-                                            final SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-                                            final Date dateObj = sdf.parse(splited);
-                                            String correcetTime = new SimpleDateFormat("K:mm a").format(dateObj);
-                                            arrayList.add(textMsg.replaceAll(splited, correcetTime));
-                                        } catch (Exception e) {
-                                            Log.d("Error:", String.valueOf(e));
-                                        }
+                                        //But if it doesn't, we append it on the same line
+                                        arrayList.set(arrayList.size() - 1, arrayList.get(arrayList.size() - 1) + " " + currLine);
+                                        textMsg = "";
                                     }
-                                    textMsg = "";
                                 }
                             }
                             result.success(arrayList);
