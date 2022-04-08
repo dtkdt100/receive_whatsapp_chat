@@ -85,8 +85,6 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                             //As part of using regex, I would like to create a Pattern to make the lines on the list match this expression
                             Pattern wspLogDatePattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-                            //Use of the line separator of the O.S
-                            String lineSeparator = System.getProperty("line.separator");
 
                             while ((currLine = r.readLine()) != null) {
                                 textMsg += currLine;

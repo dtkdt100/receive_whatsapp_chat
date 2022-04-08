@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

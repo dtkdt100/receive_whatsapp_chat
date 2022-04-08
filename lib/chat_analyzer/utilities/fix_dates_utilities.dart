@@ -37,9 +37,9 @@ class FixDateUtilities {
     List newList = [];
     newList.add(list[2]);
     newList.add('-');
-    newList.add(list[0]);
-    newList.add('-');
     newList.add(list[1]);
+    newList.add('-');
+    newList.add(list[0]);
     return newList;
   }
 
