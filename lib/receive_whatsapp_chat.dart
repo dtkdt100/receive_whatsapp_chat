@@ -32,6 +32,12 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    disableShareReceiving();
+    super.dispose();
+  }
+
   /// Enable the receiving
   void enableShareReceiving() {
     _shareReceiveSubscription ??=
