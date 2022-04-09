@@ -12,15 +12,17 @@ Please add the following to `android/app/main/java/.../MainActivity.java`.
 
 ```java
 import android.os.Bundle;
+
 import io.flutter.plugins.GeneratedPluginRegistrant;
+
 import com.whatsapp.receive_whatsapp_chat.FlutterShareReceiverActivity;
 
 public class MainActivity extends FlutterShareReceiverActivity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
+    }
 }
 ```
 
@@ -32,16 +34,16 @@ You can import the package with:
 import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
 ```
 
-
 You need to create a class that extends the class `ReceiveWhatsappChat`.
 
 ```dart
 class DemoAppState extends ReceiveWhatsappChat<DemoApp>
 ```
 
-
-It will make you implement a function that receive `Chat content` class every time a chat is exported from WhatsApp.
- `Chat content` contains chat members, chat name, messages per member, size of the chat and all of its messages.
+It will make you implement a function that receive `Chat content` class every time a chat is
+exported from WhatsApp.
+`Chat content` contains chat members, chat name, messages per member, size of the chat and all of
+its messages.
 
 ```dart
 @override
@@ -87,7 +89,7 @@ class DemoApp extends StatefulWidget {
 
 class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
   static const MethodChannel _methodChannel =
-      MethodChannel('com.whatsapp.chat/openwhatsapp');
+  MethodChannel('com.whatsapp.chat/openwhatsapp');
   List<ChatContent> chats = [];
 
   @override
@@ -137,7 +139,8 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
         ));
   }
 
-  Widget buildShowChat(int index) => Column(
+  Widget buildShowChat(int index) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -157,10 +160,12 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 Column(
                   children: List.generate(
                       3,
-                      (index2) => Padding(
+                          (index2) =>
+                          Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Text(
-                                '\t${index2 + 1}. ${chats[index].messages[Random().nextInt(chats[index].sizeOfChat)]}\n'),
+                                '\t${index2 + 1}. ${chats[index].messages[Random().nextInt(
+                                    chats[index].sizeOfChat)]}\n'),
                           )),
                 ),
               ],
