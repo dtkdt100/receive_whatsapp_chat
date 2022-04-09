@@ -34,6 +34,12 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
   List<ChatContent> chats = [];
 
   @override
+  void dispose() {
+    disableShareReceiving();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

@@ -3,7 +3,7 @@ class FixDateUtilities {
   static String hourStringOrganization(String hourFromLine) {
     String hour = hourFromLine.split(':')[0];
     String minute = hourFromLine.split(':')[1].split(' ')[0];
-    if (hourFromLine.split(' ').length == 1) return '$hour:$minute:00';
+    if (hourFromLine.split(' ').length == 1) return '${_fixMonthOrDayTo01(hour)}:$minute:00';
     if (hourFromLine.split(' ')[1] == 'PM') {
       hour = '${int.parse(hour) + 12}';
     } else {

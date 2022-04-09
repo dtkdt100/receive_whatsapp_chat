@@ -52,6 +52,9 @@ void receiveChatContent(ChatContent chatContent) {
 }
 ```
 
+Note: `enableShareReceiving()` is called automatically when the plugin is initialized, so remember
+to call `disableShareReceiving()` when you don't want to receive chats anymore or close the app.
+
 ## Full Example
 
 `main.dart`
