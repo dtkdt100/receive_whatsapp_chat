@@ -82,8 +82,10 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                             /* This regex will match the lines that contains the date in this format "29. Jan. 12:22", when I take a look at your file
                             I can see that the "additional text of the message" does not contains any date, so I can use that as my point of separation*/
                             String regex = "(\\d)(\\d)(/)(\\d)(\\d)(/)(\\d)(\\d)(\\d)(\\d)(,)(\\s+)(\\d)(\\d)(:)(\\d)(\\d)(\\s+)";
+                            String regex2 = "(\\d)(\\d)(/)(\\d)(\\d)(/)(\\d)(\\d)(\\d)(\\d)(,)(\\s+)(\\d)(:)(\\d)(\\d)(\\s+)";
                             //As part of using regex, I would like to create a Pattern to make the lines on the list match this expression
                             Pattern wspLogDatePattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+                            Pattern wspLogDatePattern2 = Pattern.compile(regex2, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
 
                             while ((currLine = r.readLine()) != null) {
@@ -92,9 +94,10 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                                     firstIterationDone = true;
                                 } else {
                                     Matcher wspLogDateMatcher = wspLogDatePattern.matcher(currLine);
+                                    Matcher wspLogDateMatcher2 = wspLogDatePattern2.matcher(currLine);
 
                                     //The first time we will check if the second line has the pattern, if it does, we append a line separator
-                                    if (wspLogDateMatcher.find()) {
+                                    if (wspLogDateMatcher.find() || wspLogDateMatcher2.find()) {
                                         //It is a "normal" line
                                         arrayList.add(textMsg);
                                         textMsg = "";
