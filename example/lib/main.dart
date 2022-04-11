@@ -105,7 +105,7 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 const Text('Three random messages:\n'),
                 Column(
                   children: List.generate(
-                      10,
+                      3,
                       (index2) => Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Text(

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3ad0088-14dd-4d89-aebd-b78a3780c5d1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/chat_analyzer/languages/languages.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/ReceiveWhatsappChatPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/ReceiveWhatsappChatPlugin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" afterDir="false" />
@@ -74,6 +75,17 @@
       <updated>1630400461448</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

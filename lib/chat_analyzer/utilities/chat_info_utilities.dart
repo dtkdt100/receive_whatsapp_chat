@@ -1,10 +1,12 @@
+import 'package:receive_whatsapp_chat/chat_analyzer/languages/languages.dart';
 import 'package:receive_whatsapp_chat/models/message_content.dart';
 
 import 'fix_dates_utilities.dart';
 
 class ChatInfoUtilities {
   //static final RegExp _regExp = RegExp(r"\d\d/\d\d/\d\d\d\d,\s+\d\d:\d\d\s+-");
-  static final RegExp _regExp = RegExp(r"\d\d/\d\d/\d\d\d\d,\s+\d\d?:\d\d\s+-");
+  static final RegExp _regExp = RegExp(r"\d\d?[/|.]\d\d?[/|.]\d\d\d\d,\s+\d\d?:\d\d\s+-");
+
 
   /// chat info contains messages per member, members of the chat, messages, and size of the chat
   static Map<String, dynamic> getChatInfo(List<String> chat) {
@@ -32,17 +34,7 @@ class ChatInfoUtilities {
 
     names.remove(null);
     for (int i = 0; i < names.length; i++) {
-      if (countNameMsgs[i] < 5) {
-      } else {
-        chatInfo['msgsPerPerson'][names[i]] = countNameMsgs[i];
-      }
-    }
-
-    for (int i = 0; i < names.length; i++) {
-      if (countNameMsgs[i] < 5) {
-        names.removeAt(i);
-        countNameMsgs.removeAt(i);
-      }
+      chatInfo['msgsPerPerson'][names[i]] = countNameMsgs[i];
     }
 
     chatInfo['names'] = names;
@@ -59,8 +51,6 @@ class ChatInfoUtilities {
 
     if (line.split(' - ').length == 1) {
       return nullMessageContent;
-    } else if (line.contains("Missed group video call")) {
-      return nullMessageContent;
     }
 
     String splitLineToTwo = line.split(_regExp).last;
@@ -71,9 +61,7 @@ class ChatInfoUtilities {
     String senderId = splitLineToTwo.split(': ')[0];
     String msg = splitLineToTwo.split(': ').sublist(1).join(': ');
 
-    if (msg == "This message was deleted" ||
-        msg == "You deleted this message" ||
-        msg == "<Media omitted>") {
+    if (Languages.hasMatchForAll(msg)) {
       return nullMessageContent;
     }
 
