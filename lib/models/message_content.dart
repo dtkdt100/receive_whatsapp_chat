@@ -41,4 +41,16 @@ class MessageContent {
 
     return msgsParsed;
   }
+
+  // opreator ==
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MessageContent &&
+          runtimeType == other.runtimeType &&
+          senderId == other.senderId &&
+          msg == other.msg &&
+          dateTime == other.dateTime;
+
+
 }

@@ -20,6 +20,7 @@ class Languages {
   static const List<String> mediaOmitted = [
     '<Media omitted>', // English
     '<המדיה הוסרה>', // Hebrew
+    '<המדיה לא נכללה>', // Hebrew
     '<Без медиафайлов>', // Russian
     '<Média manquante>', // French
     '<Media mancante>', // Italian

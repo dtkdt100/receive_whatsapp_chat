@@ -53,6 +53,17 @@ class ChatContent {
   }
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ChatContent &&
+          runtimeType == other.runtimeType &&
+          chatName == other.chatName &&
+          sizeOfChat == other.sizeOfChat &&
+          members == other.members &&
+          messages == other.messages &&
+          msgsPerMember == other.msgsPerMember;
+
+  @override
   String toString() {
     return 'ChatContent{names: $members, sizeOfChat: $sizeOfChat, chatName: $chatName, msgsPerPerson: $msgsPerMember}';
   }
