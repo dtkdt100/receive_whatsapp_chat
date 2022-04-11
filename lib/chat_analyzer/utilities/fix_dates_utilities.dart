@@ -54,7 +54,7 @@ class FixDateUtilities {
   }
 
   ///The year in Whatsapp are 22, where it should be 2022.
-  ///This function added the 2 missing numbers (maybe if you are watching this it is 3!)
+  ///This function added the 2 missing numbers (maybe if you are watching this it is now 3!)
   static String _fixYear20(String year) {
     if (year.length == 4) return year;
     String firstFirstTwoLetters = '${DateTime.now().year}'.substring(0, 2);

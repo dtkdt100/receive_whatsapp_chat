@@ -5,7 +5,7 @@ import 'fix_dates_utilities.dart';
 
 class ChatInfoUtilities {
   //static final RegExp _regExp = RegExp(r"\d\d/\d\d/\d\d\d\d,\s+\d\d:\d\d\s+-");
-  static final RegExp _regExp = RegExp(r"\d\d?[/|.]\d\d?[/|.]\d\d\d\d,\s+\d\d?:\d\d\s+-");
+  static final RegExp _regExp = RegExp(r"\d\d?[/|.]\d\d?[/|.]\d?\d?\d\d,\s+\d\d?:\d\d\s+-");
 
 
   /// chat info contains messages per member, members of the chat, messages, and size of the chat
