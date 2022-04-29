@@ -55,6 +55,9 @@
     </array>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>To upload photos, please allow permission to access your photo library.</string>
-
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>whatsapp://</string>
+    </array>
 </dict>
 </plist>
