@@ -14,6 +14,7 @@ class FixDateUtilities {
 
   /// Fixing a string date of whatsapp to a parsable dart date
   static String dateStringOrganization(String dateFromLine) {
+    dateFromLine = dateFromLine.replaceAll('[', '');
     List listOfMonthDayYear = dateFromLine.split(RegExp(r"[/|.]"));
     listOfMonthDayYear[0] = _fixMonthOrDayTo01(listOfMonthDayYear[0]);
     listOfMonthDayYear[1] = _fixMonthOrDayTo01(listOfMonthDayYear[1]);

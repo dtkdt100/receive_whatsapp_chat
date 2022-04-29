@@ -42,3 +42,7 @@
 ## 0.0.12
 
 * Recognize now also the dates 12.2.22 and not only 12.2.2022
+
+## 0.0.13
+
+* Support for Portuguese language
