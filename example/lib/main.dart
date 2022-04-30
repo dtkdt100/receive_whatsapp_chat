@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WhatsApp chat share Plugin Demo',
+      title: 'Receive WhatsApp Chat Plugin Demo',
       theme: ThemeData(),
       home: const DemoApp(),
     );
@@ -41,7 +41,7 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Whatsapp Chat Export Plugin Demo'),
+          title: const Text('WhatsApp Chat Export Plugin Demo'),
           backgroundColor: Colors.blue,
         ),
         body: Padding(

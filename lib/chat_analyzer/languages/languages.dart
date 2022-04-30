@@ -1,3 +1,5 @@
+import 'dart:io';
+
 /// When WhatsApp export a chat it will export the special messages in different languages.
 /// I added support for those languages. If you have a language that is not supported,
 /// please sent it to me and I will add it. Thanks!
@@ -32,7 +34,7 @@ class Languages {
     '<ملفات مفقودة>', // Arabic
   ];
 
-  static const List<String> thisMessgaeWasDelted = [
+  static const List<String> thisMessageWasDeleted = [
     'This message was deleted', // English
     'הודעה זו נמחקה', // Hebrew
     'Данное сообщение удалено', // Russian
@@ -47,9 +49,14 @@ class Languages {
   ];
 
   static bool hasMatchForAll(String text) {
+    /// In iOS the spacial messages it a little bit different
+    if (Platform.isIOS) {
+      text = text.replaceAll('.', '');
+      text = text.replaceRange(0, 1, '');
+    }
     return hasMatch(text, youDeletedThisMessage) ||
         hasMatch(text, mediaOmitted) ||
-        hasMatch(text, thisMessgaeWasDelted);
+        hasMatch(text, thisMessageWasDeleted);
   }
 
   static bool hasMatch(String text, List<String> list) {

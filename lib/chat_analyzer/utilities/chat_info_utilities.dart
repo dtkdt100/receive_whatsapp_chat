@@ -27,7 +27,7 @@ class ChatInfoUtilities {
     List<String> lines = [];
     bool first = true;
 
-    for (int i = 1; i < chat.length; i++) {
+    for (int i = Platform.isAndroid ? 1 : 2; i < chat.length; i++) {
       if (_regExp.hasMatch(chat[i])) {
         lines.add(chat[i]);
         if (!first) {
