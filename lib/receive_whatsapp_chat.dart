@@ -32,7 +32,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   @override
   void initState() {
     /// For sharing images coming from outside the app while the app is closed
-    if (Platform.isIOS) ReceiveSharingIntent.getInitialMedia().then(_receiveShareInternaliOS);
+    if (Platform.isIOS) ReceiveSharingIntent.getInitialMedia().then(_receiveShareInternalIOS);
     enableShareReceiving();
     super.initState();
   }
@@ -44,7 +44,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
           stream.receiveBroadcastStream().listen(_receiveShareInternalAndroid);
     } else if (Platform.isIOS) {
       _shareReceiveSubscription ??= ReceiveSharingIntent.getMediaStream()
-          .listen(_receiveShareInternaliOS);
+          .listen(_receiveShareInternalIOS);
     }
     shareReceiveEnabled = true;
     debugPrint("enabled share receiving");
@@ -60,21 +60,26 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     debugPrint("disabled share receiving");
   }
 
-  /// Receive the share - in our case we receive a content url: content://com.whatsapp.provider.media/export_chat/972537739211@s.whatsapp.net/e26757...
+  /// Receive the share Android - in our case we receive a zip file url: file:///private/var/mobile/Containers/Shared/AppGroup/...
+  void _receiveShareInternalIOS(List<SharedMediaFile> shared) {
+    debugPrint("Share received - $shared");
+    if (shared.isNotEmpty) receiveShareIOS(shared[0].path);
+  }
+
+  /// Receive the share Android - in our case we receive a content url: content://com.whatsapp.provider.media/export_chat/972537739211@s.whatsapp.net/e26757...
   void _receiveShareInternalAndroid(dynamic shared) {
     debugPrint("Share received - $shared");
     receiveShareAndroid(Share.fromReceived(shared));
   }
 
-  void _receiveShareInternaliOS(List<SharedMediaFile> shared) {
-    debugPrint("Share received - $shared");
-    receiveShareiOS(shared[0].path);
-  }
-
-  Future<void> receiveShareiOS(String path) async{
+  /// In iOS WhatsApp sends us a zip file.
+  /// We need to unzip the file, read it and sent it to the [ChatAnalyzer.analyze]
+  Future<void> receiveShareIOS(String path) async{
+    path = Uri.decodeFull(path);
     if (!isWhatsAppChatUrl(path)) throw Exception("Not a WhatsApp chat url");
     if (!await IOSUtils.unzip(path)) throw Exception("Unzip failed");
     List<String> chat = await IOSUtils.readFile();
+    chat.insert(0, path.split('/').last);
     receiveChatContent(ChatAnalyzer.analyze(chat));
   }
 

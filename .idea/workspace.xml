@@ -3,24 +3,43 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a3ad0088-14dd-4d89-aebd-b78a3780c5d1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Runner-Bridging-Header.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Runner/Runner.entitlements" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Share Extension/Base.lproj/MainInterface.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Share Extension/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Share Extension/Share Extension.entitlements" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Share Extension/ShareViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/swiftFile.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/whatsapp/receive_whatsapp_chat/FlutterShareReceiverActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/chat_analyzer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/chat_info_utilities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/chat_analyzer/utilities/fix_dates_utilities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/chat_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/chat_content.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/receive_whatsapp_chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/receive_whatsapp_chat.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +69,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/StudioProjects/roulette_for_whatsapp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="ml.local.models.training.notification.expired" value="true" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>

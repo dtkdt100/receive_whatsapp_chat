@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_archive-4.2.0" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.13" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.5" />
       <root url="file://$PROJECT_DIR$" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.8" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.13" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/receive_sharing_intent-1.4.5" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_archive-4.2.0" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.5" />
-      <root url="file:///flutter_sdk_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.8" />
+      <root url="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/receive_sharing_intent-1.4.5" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
