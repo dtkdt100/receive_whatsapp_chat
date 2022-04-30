@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:receive_whatsapp_chat/ios/ios_utils.dart';
 import 'package:receive_whatsapp_chat/share/share.dart';
 import 'chat_analyzer/chat_analyzer.dart';
 import 'models/chat_content.dart';
@@ -28,14 +31,21 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// We need to enable [shareReceiveEnabled] at first
   @override
   void initState() {
+    /// For sharing images coming from outside the app while the app is closed
+    if (Platform.isIOS) ReceiveSharingIntent.getInitialMedia().then(_receiveShareInternaliOS);
     enableShareReceiving();
     super.initState();
   }
 
   /// Enable the receiving
   void enableShareReceiving() {
-    _shareReceiveSubscription ??=
-        stream.receiveBroadcastStream().listen(_receiveShareInternal);
+    if (Platform.isAndroid) {
+      _shareReceiveSubscription ??=
+          stream.receiveBroadcastStream().listen(_receiveShareInternalAndroid);
+    } else if (Platform.isIOS) {
+      _shareReceiveSubscription ??= ReceiveSharingIntent.getMediaStream()
+          .listen(_receiveShareInternaliOS);
+    }
     shareReceiveEnabled = true;
     debugPrint("enabled share receiving");
   }
@@ -51,18 +61,42 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   }
 
   /// Receive the share - in our case we receive a content url: content://com.whatsapp.provider.media/export_chat/972537739211@s.whatsapp.net/e26757...
-  void _receiveShareInternal(dynamic shared) {
+  void _receiveShareInternalAndroid(dynamic shared) {
     debugPrint("Share received - $shared");
-    receiveShare(Share.fromReceived(shared));
+    receiveShareAndroid(Share.fromReceived(shared));
+  }
+
+  void _receiveShareInternaliOS(List<SharedMediaFile> shared) {
+    debugPrint("Share received - $shared");
+    receiveShareiOS(shared[0].path);
+  }
+
+  Future<void> receiveShareiOS(String path) async{
+    if (!isWhatsAppChatUrl(path)) throw Exception("Not a WhatsApp chat url");
+    if (!await IOSUtils.unzip(path)) throw Exception("Unzip failed");
+    List<String> chat = await IOSUtils.readFile();
+    receiveChatContent(ChatAnalyzer.analyze(chat));
   }
 
   /// Calling the [_methodChannel.invokeMethod] and receive [List<String>] as a result.
   /// Sent it to analyze at [ChatAnalyzer.analyze].
   /// Calling an abstract function [receiveChatContent] with [ChatContent] variable.
-  Future<void> receiveShare(Share shared) async {
-    List<String> chat = List<String>.from(await _methodChannel.invokeMethod(
-        "analyze", <String, dynamic>{"data": shared.shares[0].path}));
+  Future<void> receiveShareAndroid(Share shared) async {
+    final url = shared.shares[0].path;
+    if (!isWhatsAppChatUrl(url)) throw Exception("Not a WhatsApp chat url");
+    List<String> chat = List<String>.from(await _methodChannel
+        .invokeMethod("analyze", <String, dynamic>{"data": url}));
     receiveChatContent(ChatAnalyzer.analyze(chat));
+  }
+
+  /// Check if the url is a WhatsApp chat url
+  bool isWhatsAppChatUrl(String url) {
+    if (Platform.isAndroid) {
+      return url.startsWith("content://com.whatsapp.provider.media/export_chat/");
+    } else if (Platform.isIOS) {
+      return url.startsWith("file:///private/var/mobile/Containers/Shared/AppGroup/");
+    }
+    return false;
   }
 
   /// Abstract function calling after we receive and analyze the chat

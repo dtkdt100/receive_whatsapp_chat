@@ -117,7 +117,7 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 height: 20,
               ),
               chats.isEmpty
-                  ? const Text('Open Whatsapp to export chats')
+                  ? const Text('Open WhatsApp to export chats')
                   : const SizedBox(),
               Expanded(
                 child: SingleChildScrollView(

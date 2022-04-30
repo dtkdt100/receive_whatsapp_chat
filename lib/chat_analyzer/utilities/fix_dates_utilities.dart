@@ -14,6 +14,7 @@ class FixDateUtilities {
 
   /// Fixing a string date of whatsapp to a parsable dart date
   static String dateStringOrganization(String dateFromLine) {
+    dateFromLine = dateFromLine.replaceAll('[', '');
     List listOfMonthDayYear = dateFromLine.split(RegExp(r"[/|.]"));
     listOfMonthDayYear[0] = _fixMonthOrDayTo01(listOfMonthDayYear[0]);
     listOfMonthDayYear[1] = _fixMonthOrDayTo01(listOfMonthDayYear[1]);
@@ -54,7 +55,7 @@ class FixDateUtilities {
   }
 
   ///The year in Whatsapp are 22, where it should be 2022.
-  ///This function added the 2 missing numbers (maybe if you are watching this it is 3!)
+  ///This function added the 2 missing numbers (maybe if you are watching this it is now 3!)
   static String _fixYear20(String year) {
     if (year.length == 4) return year;
     String firstFirstTwoLetters = '${DateTime.now().year}'.substring(0, 2);

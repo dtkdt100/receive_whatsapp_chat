@@ -5,19 +5,20 @@ class ChatAnalyzer {
   /// Analyze [List<String>] to [ChatContent]
   static ChatContent analyze(List<String> chat) {
     String chatName = _getChatName(chat);
-    Map<String, dynamic> chatInfo = ChatInfoUtilities.getChatInfo(chat);
+    ChatContent chatInfo = ChatInfoUtilities.getChatInfo(chat);
 
     return ChatContent(
-      members: chatInfo['names'],
-      messages: chatInfo['messages'],
-      sizeOfChat: chatInfo['sizeOfChat'],
-      msgsPerMember: Map<String, int>.from(chatInfo['msgsPerPerson']),
+      members: chatInfo.members,
+      messages: chatInfo.messages,
+      sizeOfChat: chatInfo.sizeOfChat,
+      indexesPerMember: chatInfo.indexesPerMember,
+      msgsPerMember: chatInfo.msgsPerMember,
       chatName: chatName,
     );
   }
 
   /// In case your phone is one English, The name of the chat will be like this:
-  /// WhatsApp Chat with [Name of the chat] .txt
+  /// WhatsApp Chat with [name_of_chat].txt
   /// The function spilt the name of the chat.
   static String _getChatName(List<String> chat) {
     return chat.first.split(".txt").first.split("WhatsApp Chat with ").last;

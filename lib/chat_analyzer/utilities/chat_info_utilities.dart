@@ -1,47 +1,75 @@
+import 'dart:io';
+
 import 'package:receive_whatsapp_chat/chat_analyzer/languages/languages.dart';
 import 'package:receive_whatsapp_chat/models/message_content.dart';
 
+import '../../models/chat_content.dart';
 import 'fix_dates_utilities.dart';
 
 class ChatInfoUtilities {
-  //static final RegExp _regExp = RegExp(r"\d\d/\d\d/\d\d\d\d,\s+\d\d:\d\d\s+-");
-  static final RegExp _regExp = RegExp(r"\d\d?[/|.]\d\d?[/|.]\d\d\d\d,\s+\d\d?:\d\d\s+-");
+  /// [_regExp] to find where each message starts and Where it ends:
+  /// Android:
+  /// message starts with somthing like: "25/04/2022, 10:17 - Dolev Test Phone: Hi"
+  /// iOS:
+  /// message starts with somthing like: "[25/04/2022, 10:17:07] Dolev Test Phone: Hi"
+  static final RegExp _regExp = RegExp(r"[?\d\d?[/|.]\d\d?[/|.]\d?\d?\d\d,?\s\d\d?:\d\d:?\d?\d?\s?-?]?\s?");
 
+  /// [_regExpToSplitLineAndroid] and [_regExpToSplitLineIOS] to get the message date and time
+  static final RegExp _regExpToSplitLineAndroid = RegExp(r"\s-\s");
+  static final RegExp _regExpToSplitLineIOS = RegExp(r":\d\d]\s");
 
   /// chat info contains messages per member, members of the chat, messages, and size of the chat
-  static Map<String, dynamic> getChatInfo(List<String> chat) {
-    Map<String, dynamic> chatInfo = {};
+  static ChatContent getChatInfo(List<String> chat) {
 
     List<String> names = [];
-    List<int> countNameMsgs = [];
+    List<List<int>> countNameMsgs = [];
     List<MessageContent> msgContents = [];
+    List<String> lines = [];
+    bool first = true;
 
     for (int i = 1; i < chat.length; i++) {
-      MessageContent msgContent = _getMsgContentFromStringLine(chat[i]);
-      if (!names.contains(msgContent.senderId) && msgContent.senderId != null) {
-        names.add(msgContent.senderId!);
-        countNameMsgs.add(1);
-        msgContents.add(msgContent);
-      } else {
-        if (msgContent.senderId != null) {
-          countNameMsgs[names.indexOf(msgContent.senderId!)]++;
-          msgContents.add(msgContent);
+      if (_regExp.hasMatch(chat[i])) {
+        lines.add(chat[i]);
+        if (!first) {
+          MessageContent msgContent = _getMsgContentFromStringLine(
+              lines[lines.length - 2]);
+          if (!names.contains(msgContent.senderId) &&
+              msgContent.senderId != null) {
+            names.add(msgContent.senderId!);
+            countNameMsgs.add([msgContents.length]);
+            msgContents.add(msgContent);
+          } else {
+            if (msgContent.senderId != null) {
+              countNameMsgs[names.indexOf(msgContent.senderId!)].add(
+                  msgContents.length);
+              msgContents.add(msgContent);
+            }
+          }
         }
+        first = false;
+      } else {
+        lines[lines.length - 1] += "\n" + chat[i];
       }
     }
 
-    chatInfo['msgsPerPerson'] = {};
+    names.remove(null);
+    Map<String, List<int>> indexesPerMember = {};
+    Map<String, int> msgsPerPerson = {};
 
     names.remove(null);
     for (int i = 0; i < names.length; i++) {
-      chatInfo['msgsPerPerson'][names[i]] = countNameMsgs[i];
+      msgsPerPerson[names[i]] = countNameMsgs[i].length;
+      indexesPerMember[names[i]] = countNameMsgs[i];
     }
 
-    chatInfo['names'] = names;
-    chatInfo['sizeOfChat'] = msgContents.length;
-    chatInfo['messages'] = msgContents;
-
-    return chatInfo;
+    return ChatContent(
+      members: names,
+      messages: msgContents,
+      sizeOfChat: msgContents.length,
+      indexesPerMember: indexesPerMember,
+      msgsPerMember: msgsPerPerson,
+      chatName: '',
+    );
   }
 
   /// Receive a String line and return from it [MessageContent]
@@ -49,7 +77,9 @@ class ChatInfoUtilities {
     MessageContent nullMessageContent =
         MessageContent(senderId: null, msg: null);
 
-    if (line.split(' - ').length == 1) {
+    if (Platform.isAndroid && line.split(_regExpToSplitLineAndroid).length == 1) {
+      return nullMessageContent;
+    } else if (Platform.isIOS && line.split(_regExpToSplitLineIOS).length == 1) {
       return nullMessageContent;
     }
 
@@ -74,13 +104,21 @@ class ChatInfoUtilities {
 
   /// Receive a String line and return from it [DateTime], if it fails it returns null
   static DateTime? _parseLineToDatetime(String line) {
-    if (line.split(' - ').length == 1) {
+    RegExp regExp;
+    if (Platform.isAndroid) {
+      regExp = _regExpToSplitLineAndroid;
+    } else if (Platform.isIOS) {
+      regExp = _regExpToSplitLineIOS;
+    } else {
+      return null;
+    }
+    if (line.split(regExp).length == 1) {
       return null;
     }
 
-    String splitLineToTwo = line.split(' - ').first;
+    String splitLineToTwo = line.split(regExp).first;
 
-    List dateFromLine = splitLineToTwo.split(', ');
+    List dateFromLine = splitLineToTwo.split(RegExp(r",?\s"));
 
     if (dateFromLine.length == 1) {
       return null;

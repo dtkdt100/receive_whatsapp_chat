@@ -67,43 +67,13 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                         try {
                             final InputStream openInputStream = getContentResolver().openInputStream(students);
                             BufferedReader r = new BufferedReader(new InputStreamReader(openInputStream));
-
                             assert c != null;
                             c.moveToFirst();
-                            ArrayList arrayList = new ArrayList();
+                            ArrayList<String> arrayList = new ArrayList<String>();
                             arrayList.add(c.getString(0));
-                            arrayList.add(String.valueOf(c.getString(1)));
-                            String textMsg = "";
-
-                            String currLine = null;//This is the current line (like my cursor)
-                            boolean firstIterationDone = false;//The first line will always contains the format, so I will always append it, from the second I will start making the checkings...
-
-                            // Now I can use some regex (I'm not really good at this stuff, I just used a Web Page: http://txt2re.com/)
-                            /* This regex will match the lines that contains the date in this format "29. Jan. 12:22", when I take a look at your file
-                            I can see that the "additional text of the message" does not contains any date, so I can use that as my point of separation*/
-                            String regex = "(\\d)?(\\d)(/|[.])(\\d)?(\\d)(/|[.])(\\d)(\\d)(\\d)(\\d)(,)(\\s+)(\\d)(\\d)?(:)(\\d)(\\d)(\\s+)";
-                            //As part of using regex, I would like to create a Pattern to make the lines on the list match this expression
-                            Pattern wspLogDatePattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-
-
-                            while ((currLine = r.readLine()) != null) {
-                                textMsg += currLine;
-                                if (!firstIterationDone) {
-                                    firstIterationDone = true;
-                                } else {
-                                    Matcher wspLogDateMatcher = wspLogDatePattern.matcher(currLine);
-
-                                    //The first time we will check if the second line has the pattern, if it does, we append a line separator
-                                    if (wspLogDateMatcher.find()) {
-                                        //It is a "normal" line
-                                        arrayList.add(textMsg);
-                                        textMsg = "";
-                                    } else {
-                                        //But if it doesn't, we append it on the same line
-                                        arrayList.set(arrayList.size() - 1, arrayList.get(arrayList.size() - 1) + " " + currLine);
-                                        textMsg = "";
-                                    }
-                                }
+                            String line;
+                            while ((line = r.readLine()) != null) {
+                                arrayList.add(line);
                             }
                             result.success(arrayList);
                         } catch (Exception e) {
@@ -111,8 +81,6 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                             Log.d("Error:", String.valueOf(e));
                             result.success(arrayList);
                         }
-                    } else if (call.method.equals("OpenWhatsapp")) {
-                        //openWhatsApp();
                     } else {
                         result.notImplemented();
                     }

@@ -1,6 +1,12 @@
 import 'message_content.dart';
 
 /// Class for the whole settings of the chat
+/// [chatName] - name of the chat
+/// [members] - list of members of the chat
+/// [messages] - list of [MessageContent] in the chat
+/// [sizeOfChat] - size of the chat
+/// [msgsPerMember] - number of messages per member
+/// [indexesPerMember] - list of indexes of messages per member
 class ChatContent {
   ChatContent({
     required this.members,
@@ -8,6 +14,7 @@ class ChatContent {
     required this.sizeOfChat,
     required this.chatName,
     required this.msgsPerMember,
+    required this.indexesPerMember,
   });
 
   final List<String> members;
@@ -15,6 +22,7 @@ class ChatContent {
   final int sizeOfChat;
   final String chatName;
   final Map<String, int> msgsPerMember;
+  final Map<String, List<int>> indexesPerMember;
 
   Map<String, dynamic> toJson() => {
         'chatName': chatName,
@@ -22,6 +30,7 @@ class ChatContent {
         'names': members,
         'msgContents': _listOfMessageContentsToJson(messages),
         'msgsPerPerson': msgsPerMember,
+        'indexesPerPerson': indexesPerMember,
       };
 
   /// We should parse also all the [MessageContent] toJson
@@ -49,7 +58,16 @@ class ChatContent {
       members: List<String>.from(chatMap['names']),
       messages: msgs,
       msgsPerMember: Map<String, int>.from(chatMap['msgsPerPerson']),
+      indexesPerMember: chatMap['indexesPerPerson'] == null ? {} : _toIndexesPerMember(Map<String, dynamic>.from(chatMap['indexesPerPerson'])),
     );
+  }
+
+  static Map<String, List<int>> _toIndexesPerMember(Map<String, dynamic> lst) {
+    Map<String, List<int>> indexesPerMember = {};
+    for (var key in lst.keys) {
+      indexesPerMember[key] = List<int>.from(lst[key]);
+    }
+    return indexesPerMember;
   }
 
   @override
@@ -61,10 +79,13 @@ class ChatContent {
           sizeOfChat == other.sizeOfChat &&
           members == other.members &&
           messages == other.messages &&
+          indexesPerMember == other.indexesPerMember &&
           msgsPerMember == other.msgsPerMember;
 
   @override
   String toString() {
     return 'ChatContent{names: $members, sizeOfChat: $sizeOfChat, chatName: $chatName, msgsPerPerson: $msgsPerMember}';
   }
+
+
 }

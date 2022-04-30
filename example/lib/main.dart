@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Whatsapp chat share Plugin Demo',
+      title: 'WhatsApp chat share Plugin Demo',
       theme: ThemeData(),
       home: const DemoApp(),
     );
@@ -29,8 +29,6 @@ class DemoApp extends StatefulWidget {
 }
 
 class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
-  static const MethodChannel _methodChannel =
-      MethodChannel('com.whatsapp.chat/openwhatsapp');
   List<ChatContent> chats = [];
 
   @override
@@ -59,7 +57,7 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 height: 20,
               ),
               chats.isEmpty
-                  ? const Text('Open Whatsapp to export chats')
+                  ? const Text('Open WhatsApp to export chats')
                   : const SizedBox(),
               Expanded(
                 child: SingleChildScrollView(
@@ -76,8 +74,12 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 child: ElevatedButton(
                   child: const Text('Open WhatsApp'),
                   style: ElevatedButton.styleFrom(primary: Colors.green),
-                  onPressed: () {
-                    _methodChannel.invokeMethod("openwhatsapp");
+                  onPressed: () async {
+                    await LaunchApp.openApp(
+                      androidPackageName: 'com.whatsapp',
+                      iosUrlScheme: 'whatsapp://app',
+                      appStoreLink: 'https://apps.apple.com/us/app/whatsapp-messenger/id310633997',
+                    );
                   },
                 ),
               ),
