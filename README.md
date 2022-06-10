@@ -61,7 +61,7 @@ ios/Runner/info.plist
 - Using xcode, go to File/New/Target and Choose "Share Extension"
 - Give it a name i.e. "Share Extension"
 
-##### Make sure the deployment target for Runner.app and the share extension is the same. 
+##### Make sure the deployment target for Runner.app and the share extension is the same.
 
 ##### Add the following code:
 ios/Share Extension/info.plist
@@ -484,7 +484,7 @@ end
 
 #### 3. Add Runner and Share Extension in the same group
 
-* Go to the Capabilities tab and switch on the App Groups switch for both targets. 
+* Go to the Capabilities tab and switch on the App Groups switch for both targets.
 * Add a new group and name it as you want. For example `group.YOUR_HOST_APP_BUNDLE_IDENTIFIER` in my case `group.com.kasem.sharing`
 * Add User-defined(`Build Settings -> +`) string `CUSTOM_GROUP_ID` in *BOTH* Targets: `Runner` and `Share Extension` and set value to group id created above. You can use different group ids depends on flavor schemes
 </details>
@@ -521,7 +521,18 @@ to call `disableShareReceiving()` when you don't want to receive chats anymore o
 
 Note: when you export a chat from WhatsApp, it is best to be in English.
 
-## Full Example
+## Include media (currently only images are supported and Android only)
+
+In order to include media in the exported chat, follow the steps below:
+1. In WhatsApp chose INCLUDE MEDIA in the export options.
+2. Call `enableReceivingChatWithMedia()` in your app.
+3. To check if the message is an image message, call `isImage()` in the `MessageContent` class.
+4. To get an image Widget, call `getImage()` in the `ChatContent` class, and pass the image message. It
+will return ui.Image, to display it use `RawImage` class. See example below.
+
+Note: When you choose to include media in the exported chat, WhatsApp cuts some of the media and chat, if it's too big.
+
+# Full Example
 
 `main.dart`
 
