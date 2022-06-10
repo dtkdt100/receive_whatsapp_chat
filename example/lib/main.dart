@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:ui' as ui;
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
@@ -30,6 +30,12 @@ class DemoApp extends StatefulWidget {
 
 class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
   List<ChatContent> chats = [];
+
+  @override
+  void initState() {
+    enableReceivingChatWithMedia();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -72,15 +78,16 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
               ),
               Center(
                 child: ElevatedButton(
-                  child: const Text('Open WhatsApp'),
                   style: ElevatedButton.styleFrom(primary: Colors.green),
                   onPressed: () async {
                     await LaunchApp.openApp(
                       androidPackageName: 'com.whatsapp',
                       iosUrlScheme: 'whatsapp://app',
-                      appStoreLink: 'https://apps.apple.com/us/app/whatsapp-messenger/id310633997',
+                      appStoreLink:
+                          'https://apps.apple.com/us/app/whatsapp-messenger/id310633997',
                     );
                   },
+                  child: const Text('Open WhatsApp'),
                 ),
               ),
             ],
@@ -106,13 +113,23 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
                 Text('Messages per member - ${chats[index].msgsPerMember}\n'),
                 const Text('Three random messages:\n'),
                 Column(
-                  children: List.generate(
-                      3,
-                      (index2) => Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                                '\t${index2 + 1}. ${chats[index].messages[Random().nextInt(chats[index].sizeOfChat)]}\n'),
-                          )),
+                  children: List.generate(3, (index2) {
+                    MessageContent randomMessage = chats[index].messages[
+                        Random().nextInt(chats[index].messages.length)];
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('\t${index2 + 1}. $randomMessage\n'),
+                          randomMessage.isImage()
+                              ? buildFutureImageBuilder(
+                                  chats[index].getImage(randomMessage.msg!))
+                              : const SizedBox()
+                        ],
+                      ),
+                    );
+                  }),
                 ),
               ],
             ),
@@ -121,6 +138,20 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
             height: 50,
           ),
         ],
+      );
+
+  Widget buildFutureImageBuilder(Future<ui.Image?> img) => FutureBuilder(
+        future: img,
+        builder: (BuildContext context, AsyncSnapshot<ui.Image?> image) {
+          if (image.hasData && image.data != null) {
+            return RawImage(
+              image: image.data,
+              scale: 4.5,
+            ); // image is ready
+          } else {
+            return Container(); // placeholder
+          }
+        },
       );
 
   @override

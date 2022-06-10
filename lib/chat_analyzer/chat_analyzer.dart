@@ -4,7 +4,7 @@ import 'dart:io';
 
 class ChatAnalyzer {
   /// Analyze [List<String>] to [ChatContent]
-  static ChatContent analyze(List<String> chat) {
+  static ChatContent analyze(List<String> chat, [List<String>? imagePaths]) {
     String chatName = _getChatName(chat.first);
     ChatContent chatInfo = ChatInfoUtilities.getChatInfo(chat);
 
@@ -14,6 +14,7 @@ class ChatAnalyzer {
       sizeOfChat: chatInfo.sizeOfChat,
       indexesPerMember: chatInfo.indexesPerMember,
       msgsPerMember: chatInfo.msgsPerMember,
+      imagesPaths: imagePaths,
       chatName: chatName,
     );
   }

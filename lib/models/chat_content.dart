@@ -1,3 +1,9 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
+import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
+import 'package:collection/collection.dart';
 import 'message_content.dart';
 
 /// Class for the whole settings of the chat
@@ -7,6 +13,7 @@ import 'message_content.dart';
 /// [sizeOfChat] - size of the chat
 /// [msgsPerMember] - number of messages per member
 /// [indexesPerMember] - list of indexes of messages per member
+/// [imagesPaths] - If you chose to export WhatsApp chat with media, this list will contain the paths of the images
 class ChatContent {
   ChatContent({
     required this.members,
@@ -15,6 +22,7 @@ class ChatContent {
     required this.chatName,
     required this.msgsPerMember,
     required this.indexesPerMember,
+    this.imagesPaths,
   });
 
   final List<String> members;
@@ -23,15 +31,17 @@ class ChatContent {
   final String chatName;
   final Map<String, int> msgsPerMember;
   final Map<String, List<int>> indexesPerMember;
+  final List<String>? imagesPaths;
 
   Map<String, dynamic> toJson() => {
-        'chatName': chatName,
-        'sizeOfChat': sizeOfChat,
-        'names': members,
-        'msgContents': _listOfMessageContentsToJson(messages),
-        'msgsPerPerson': msgsPerMember,
-        'indexesPerPerson': indexesPerMember,
-      };
+    'chatName': chatName,
+    'sizeOfChat': sizeOfChat,
+    'names': members,
+    'msgContents': _listOfMessageContentsToJson(messages),
+    'msgsPerPerson': msgsPerMember,
+    'indexesPerPerson': indexesPerMember,
+    'imagesPaths': imagesPaths,
+  };
 
   /// We should parse also all the [MessageContent] toJson
   static List<Map<String, dynamic>> _listOfMessageContentsToJson(
@@ -58,7 +68,13 @@ class ChatContent {
       members: List<String>.from(chatMap['names']),
       messages: msgs,
       msgsPerMember: Map<String, int>.from(chatMap['msgsPerPerson']),
-      indexesPerMember: chatMap['indexesPerPerson'] == null ? {} : _toIndexesPerMember(Map<String, dynamic>.from(chatMap['indexesPerPerson'])),
+      imagesPaths: chatMap['imagesPaths'] != null
+          ? List<String>.from(chatMap['imagesPaths'])
+          : null,
+      indexesPerMember: chatMap['indexesPerPerson'] == null
+          ? {}
+          : _toIndexesPerMember(
+          Map<String, dynamic>.from(chatMap['indexesPerPerson'])),
     );
   }
 
@@ -70,22 +86,46 @@ class ChatContent {
     return indexesPerMember;
   }
 
+  Future<Image?> getImage(String imageName) async {
+    if (imagesPaths == null) {
+      return null;
+    }
+    /// The file name is like this: "IMG-20220609-WA0012.jpg (file attached)"
+    imageName = imageName.split(' ').first;
+    String? path = imagesPaths
+        ?.firstWhereOrNull((String path) => path.contains(imageName));
+    if (path == null) {
+      return null;
+    }
+    return await getImageByPath(path);
+  }
+
+  static Future<Image?> getImageByPath(String path) async {
+    final bytes = Uint8List.fromList(await ReceiveWhatsappChat.methodChannel
+        .invokeMethod("getImage", <String, dynamic>{"data": path}));
+    final codec = await instantiateImageCodec(bytes);
+    final frameInfo = await codec.getNextFrame();
+    return frameInfo.image;
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ChatContent &&
-          runtimeType == other.runtimeType &&
-          chatName == other.chatName &&
-          sizeOfChat == other.sizeOfChat &&
-          members == other.members &&
-          messages == other.messages &&
-          indexesPerMember == other.indexesPerMember &&
-          msgsPerMember == other.msgsPerMember;
+          other is ChatContent &&
+              runtimeType == other.runtimeType &&
+              chatName == other.chatName &&
+              sizeOfChat == other.sizeOfChat &&
+              listEquals<String>(members, other.members) &&
+              listEquals<MessageContent>(messages, other.messages) &&
+              indexesPerMember == other.indexesPerMember &&
+              msgsPerMember == other.msgsPerMember;
 
   @override
   String toString() {
-    return 'ChatContent{names: $members, sizeOfChat: $sizeOfChat, chatName: $chatName, msgsPerPerson: $msgsPerMember}';
+    return 'ChatContent{names: $members, sizeOfChat: $sizeOfChat, chatName: $chatName, msgsPerPerson: $msgsPerMember, imagesPaths: $imagesPaths}';
   }
 
-
+  @override
+  int get hashCode => hashValues(chatName, sizeOfChat, members, messages,
+      indexesPerMember, msgsPerMember, imagesPaths);
 }

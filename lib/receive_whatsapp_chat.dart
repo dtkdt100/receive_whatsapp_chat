@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -18,12 +20,15 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// Stream [stream] for listener
   static const stream = EventChannel('plugins.flutter.io/receiveshare');
 
-  /// Method Channel [_methodChannel] for analyzing the chat
-  static const MethodChannel _methodChannel =
-      MethodChannel('com.whatsapp.chat/chat');
+  /// Method Channel [methodChannel] for analyzing the chat
+  static const MethodChannel methodChannel =
+  MethodChannel('com.whatsapp.chat/chat');
 
   /// Can Receive the chat or not
   bool shareReceiveEnabled = false;
+
+  /// Save image paths
+  bool _allowReceiveWithMedia = false;
 
   /// StreamSubscription [_shareReceiveSubscription] for listener
   StreamSubscription? _shareReceiveSubscription;
@@ -32,9 +37,21 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   @override
   void initState() {
     /// For sharing images coming from outside the app while the app is closed
-    if (Platform.isIOS) ReceiveSharingIntent.getInitialMedia().then(_receiveShareInternalIOS);
+    if (Platform.isIOS) {
+      ReceiveSharingIntent.getInitialMedia().then(_receiveShareInternalIOS);
+    }
     enableShareReceiving();
     super.initState();
+  }
+
+  /// Enable [_allowReceiveWithMedia] to save the images paths
+  void enableReceivingChatWithMedia() {
+    _allowReceiveWithMedia = true;
+  }
+
+  /// Disable [shareReceiveEnabled]
+  void disableReceivingChatWithMedia() {
+    _allowReceiveWithMedia = false;
   }
 
   /// Enable the receiving
@@ -74,7 +91,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
 
   /// In iOS WhatsApp sends us a zip file.
   /// We need to unzip the file, read it and sent it to the [ChatAnalyzer.analyze]
-  Future<void> receiveShareIOS(String path) async{
+  Future<void> receiveShareIOS(String path) async {
     path = Uri.decodeFull(path);
     if (!isWhatsAppChatUrl(path)) throw Exception("Not a WhatsApp chat url");
     if (!await IOSUtils.unzip(path)) throw Exception("Unzip failed");
@@ -83,23 +100,37 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     receiveChatContent(ChatAnalyzer.analyze(chat));
   }
 
-  /// Calling the [_methodChannel.invokeMethod] and receive [List<String>] as a result.
+  /// Calling the [methodChannel.invokeMethod] and receive [List<String>] as a result.
   /// Sent it to analyze at [ChatAnalyzer.analyze].
   /// Calling an abstract function [receiveChatContent] with [ChatContent] variable.
   Future<void> receiveShareAndroid(Share shared) async {
     final url = shared.shares[0].path;
     if (!isWhatsAppChatUrl(url)) throw Exception("Not a WhatsApp chat url");
-    List<String> chat = List<String>.from(await _methodChannel
+    List<String> chat = List<String>.from(await methodChannel
         .invokeMethod("analyze", <String, dynamic>{"data": url}));
-    receiveChatContent(ChatAnalyzer.analyze(chat));
+
+    receiveChatContent(ChatAnalyzer.analyze(chat, _getImagePaths(shared)));
+  }
+
+  List<String>? _getImagePaths(Share shared) {
+    if (!_allowReceiveWithMedia) return null;
+    List<String> ret = [];
+    for (Share file in shared.shares) {
+      if (file.path.endsWith(".jpg")) {
+        ret.add(file.path);
+      }
+    }
+    return ret;
   }
 
   /// Check if the url is a WhatsApp chat url
   bool isWhatsAppChatUrl(String url) {
     if (Platform.isAndroid) {
-      return url.startsWith("content://com.whatsapp.provider.media/export_chat/");
+      return url
+          .startsWith("content://com.whatsapp.provider.media/export_chat/");
     } else if (Platform.isIOS) {
-      return url.startsWith("file:///private/var/mobile/Containers/Shared/AppGroup/");
+      return url
+          .startsWith("file:///private/var/mobile/Containers/Shared/AppGroup/");
     }
     return false;
   }

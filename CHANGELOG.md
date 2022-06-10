@@ -46,3 +46,13 @@
 ## 0.0.13
 
 * Support for Portuguese language
+
+## 0.1.1
+
+* Added iOS support!
+* Added indexesPerMember in ChatContent
+
+## 0.1.2
+
+* Add the option to export chat with media (currently only images and Android only)
+* Bug fixed

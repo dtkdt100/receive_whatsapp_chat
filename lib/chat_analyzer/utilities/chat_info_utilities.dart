@@ -20,19 +20,19 @@ class ChatInfoUtilities {
 
   /// chat info contains messages per member, members of the chat, messages, and size of the chat
   static ChatContent getChatInfo(List<String> chat) {
-
+    bool isAndroid = Platform.isAndroid;
     List<String> names = [];
     List<List<int>> countNameMsgs = [];
     List<MessageContent> msgContents = [];
     List<String> lines = [];
     bool first = true;
 
-    for (int i = Platform.isAndroid ? 1 : 2; i < chat.length; i++) {
+    for (int i = isAndroid ? 1 : 2; i < chat.length; i++) {
       if (_regExp.hasMatch(chat[i])) {
         lines.add(chat[i]);
         if (!first) {
           MessageContent msgContent = _getMsgContentFromStringLine(
-              lines[lines.length - 2]);
+              lines[lines.length - (isAndroid ? 1 : 2)]);
           if (!names.contains(msgContent.senderId) &&
               msgContent.senderId != null) {
             names.add(msgContent.senderId!);
@@ -75,7 +75,7 @@ class ChatInfoUtilities {
   /// Receive a String line and return from it [MessageContent]
   static MessageContent _getMsgContentFromStringLine(String line) {
     MessageContent nullMessageContent =
-        MessageContent(senderId: null, msg: null);
+    MessageContent(senderId: null, msg: null);
 
     if (Platform.isAndroid && line.split(_regExpToSplitLineAndroid).length == 1) {
       return nullMessageContent;

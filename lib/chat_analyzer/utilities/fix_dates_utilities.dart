@@ -3,11 +3,11 @@ class FixDateUtilities {
   static String hourStringOrganization(String hourFromLine) {
     String hour = hourFromLine.split(':')[0];
     String minute = hourFromLine.split(':')[1].split(' ')[0];
-    if (hourFromLine.split(' ').length == 1) return '${_fixMonthOrDayTo01(hour)}:$minute:00';
+    if (hourFromLine.split(' ').length == 1) return '${fixMonthOrDayTo01(hour)}:$minute:00';
     if (hourFromLine.split(' ')[1] == 'PM') {
       hour = '${int.parse(hour) + 12}';
     } else {
-      hour = _fixMonthOrDayTo01(hour);
+      hour = fixMonthOrDayTo01(hour);
     }
     return "$hour:$minute:00";
   }
@@ -16,8 +16,8 @@ class FixDateUtilities {
   static String dateStringOrganization(String dateFromLine) {
     dateFromLine = dateFromLine.replaceAll('[', '');
     List listOfMonthDayYear = dateFromLine.split(RegExp(r"[/|.]"));
-    listOfMonthDayYear[0] = _fixMonthOrDayTo01(listOfMonthDayYear[0]);
-    listOfMonthDayYear[1] = _fixMonthOrDayTo01(listOfMonthDayYear[1]);
+    listOfMonthDayYear[0] = fixMonthOrDayTo01(listOfMonthDayYear[0]);
+    listOfMonthDayYear[1] = fixMonthOrDayTo01(listOfMonthDayYear[1]);
     listOfMonthDayYear[2] = _fixYear20(listOfMonthDayYear[2]);
     listOfMonthDayYear = _sortList(listOfMonthDayYear);
     String date = _listToStringDate(listOfMonthDayYear);
@@ -46,7 +46,7 @@ class FixDateUtilities {
 
   /// Som months write as one single number when they should be write as two, for example:
   /// 9 should be 09, 1 should be 01...
-  static String _fixMonthOrDayTo01(String fix) {
+  static String fixMonthOrDayTo01(String fix) {
     if (fix.length == 2) {
       return fix;
     } else {

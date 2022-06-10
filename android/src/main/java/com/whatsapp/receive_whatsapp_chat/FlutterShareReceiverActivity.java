@@ -10,6 +10,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,15 +22,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -80,6 +82,26 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                             ArrayList arrayList = new ArrayList();
                             Log.d("Error:", String.valueOf(e));
                             result.success(arrayList);
+                        }
+                    } else if (call.method.equals("getImage")) {
+                        String URL = call.argument("data");
+                        Uri students = Uri.parse(URL);
+                        try {
+                            final InputStream openInputStream = getContentResolver().openInputStream(students);
+                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                            int nRead;
+                            byte[] data = new byte[16384];
+                            while (true) {
+                                assert openInputStream != null;
+                                if ((nRead = openInputStream.read(data, 0, data.length)) == -1)
+                                    break;
+                                buffer.write(data, 0, nRead);
+                            }
+                            result.success(buffer.toByteArray());
+
+                        } catch (Exception e) {
+                            Log.d("Error:", String.valueOf(e));
+                            result.success(null);
                         }
                     } else {
                         result.notImplemented();
