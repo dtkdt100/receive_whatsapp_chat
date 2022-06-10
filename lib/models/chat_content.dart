@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:receive_whatsapp_chat/receive_whatsapp_chat.dart';
 import 'package:collection/collection.dart';
-import 'message_content.dart';
 
 /// Class for the whole settings of the chat
 /// [chatName] - name of the chat
