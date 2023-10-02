@@ -26,6 +26,14 @@ public class MainActivity extends FlutterShareReceiverActivity {
     }
 }
 ```
+
+Note: If you have a problem with the compilation (kotlin version error), please go to the package pubspec.ymal and uncomment this:
+```
+  receive_sharing_intent:
+    git:
+      url: https://github.com/AyushmanG26/receive_sharing_intent.git
+```
+Refer to: https://github.com/KasemJaffer/receive_sharing_intent/issues/254
 </details>
 
 <details>
