@@ -1,8 +1,8 @@
-# receive_whatsapp_chat
+# Receive WhatsApp chat
 
 A flutter plugin that enables flutter apps to receive chats from Whatsapp.
 
-![alt-text-1](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/ios.gif "iOS") ![alt-text-2](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/android.gif "Android")
+![Alt Text](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/ios.gif "iOS") ![Alt Text](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/android.gif "Android")
 
 # Setup
 

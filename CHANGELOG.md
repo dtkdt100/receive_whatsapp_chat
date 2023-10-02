@@ -56,3 +56,7 @@
 
 * Add the option to export chat with media (currently only images and Android only)
 * Bug fixed
+
+## 0.1.3
+
+* Version update (dart sdk, flutter sdk, kotlin, gradle)
