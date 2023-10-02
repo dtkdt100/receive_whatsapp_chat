@@ -1,6 +1,6 @@
 name: receive_whatsapp_chat
 description: A flutter plugin that enables flutter apps to receive exported chats from WhatsApp.
-version: 0.1.3
+version: 0.1.4
 homepage: https://github.com/dtkdt100/receive_whatsapp_chat
 
 environment:
