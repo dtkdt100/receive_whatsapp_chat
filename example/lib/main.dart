@@ -78,7 +78,8 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
               ),
               Center(
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
                   onPressed: () async {
                     await LaunchApp.openApp(
                       androidPackageName: 'com.whatsapp',

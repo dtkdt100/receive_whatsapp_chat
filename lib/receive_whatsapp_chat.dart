@@ -2,14 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:receive_whatsapp_chat/share/share.dart';
 import 'package:receive_whatsapp_chat/utils/zipUtils.dart';
-import 'package:uri_to_file/uri_to_file.dart';
 import 'chat_analyzer/chat_analyzer.dart';
 import 'models/chat_content.dart';
-import 'package:flutter_archive/flutter_archive.dart';
 
 export 'models/models.dart';
 

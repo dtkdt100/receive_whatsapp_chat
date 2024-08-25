@@ -48,7 +48,7 @@ class ChatInfoUtilities {
         }
         first = false;
       } else {
-        lines[lines.length - 1] += "\n" + chat[i];
+        lines[lines.length - 1] += "\n${chat[i]}";
       }
     }
 
