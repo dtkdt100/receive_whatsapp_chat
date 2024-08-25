@@ -2,7 +2,7 @@
 
 A flutter plugin that enables flutter apps to receive chats from Whatsapp.
 
-![Alt Text](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/ios.gif "iOS") ![Alt Text](https://github.com/dtkdt100/receive_whatsapp_chat/blob/main/screenshots/android.gif "Android")
+![Alt Text](./screenshots/ios.gif "iOS") ![Alt Text](./screenshots/android.gif "Android")
 
 # Setup
 
@@ -528,17 +528,6 @@ Note: `enableShareReceiving()` is called automatically when the plugin is initia
 to call `disableShareReceiving()` when you don't want to receive chats anymore or close the app.
 
 Note: when you export a chat from WhatsApp, it is best to be in English.
-
-## Include media (currently only images are supported and Android only)
-
-In order to include media in the exported chat, follow the steps below:
-1. In WhatsApp chose INCLUDE MEDIA in the export options.
-2. Call `enableReceivingChatWithMedia()` in your app.
-3. To check if the message is an image message, call `isImage()` in the `MessageContent` class.
-4. To get an image Widget, call `getImage()` in the `ChatContent` class, and pass the image message. It
-will return ui.Image, to display it use `RawImage` class. See example below.
-
-Note: When you choose to include media in the exported chat, WhatsApp cuts some of the media and chat, if it's too big.
 
 # Full Example
 

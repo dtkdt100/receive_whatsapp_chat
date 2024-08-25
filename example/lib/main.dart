@@ -32,12 +32,6 @@ class DemoAppState extends ReceiveWhatsappChat<DemoApp> {
   List<ChatContent> chats = [];
 
   @override
-  void initState() {
-    enableReceivingChatWithMedia();
-    super.initState();
-  }
-
-  @override
   void dispose() {
     disableShareReceiving();
     super.dispose();

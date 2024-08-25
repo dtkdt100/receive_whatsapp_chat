@@ -60,3 +60,9 @@
 ## 0.1.4
 
 * Version update (dart sdk, flutter sdk, kotlin, gradle)
+
+## 0.1.5
+
+* Fix bug with media export on Android (newer WhatsApp version)
+* Remove support for "export chat with media" because of the change in the WhatsApp export format.
+  Will be added again in the future.

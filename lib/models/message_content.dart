@@ -1,7 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
-
 import '../chat_analyzer/utilities/fix_dates_utilities.dart';
 
 /// Each message in the chat class
@@ -12,8 +8,7 @@ class MessageContent {
   final String? msg;
   final DateTime? dateTime;
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'senderId': senderId,
         'msg': msg,
         'dateTime': dateTime.toString(),
@@ -30,7 +25,8 @@ class MessageContent {
       String dateTimeString = dateTime!.year.toString() +
           FixDateUtilities.fixMonthOrDayTo01(dateTime!.month.toString()) +
           FixDateUtilities.fixMonthOrDayTo01(dateTime!.day.toString());
-      return msg!.startsWith("IMG-$dateTimeString-WA") && msg!.startsWith(pattern);
+      return msg!.startsWith("IMG-$dateTimeString-WA") &&
+          msg!.startsWith(pattern);
     } else if (msg != null) {
       return msg!.startsWith(pattern);
     }
@@ -65,12 +61,12 @@ class MessageContent {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is MessageContent &&
-              runtimeType == other.runtimeType &&
-              senderId == other.senderId &&
-              msg == other.msg &&
-              dateTime == other.dateTime;
+      other is MessageContent &&
+          runtimeType == other.runtimeType &&
+          senderId == other.senderId &&
+          msg == other.msg &&
+          dateTime == other.dateTime;
 
   @override
-  int get hashCode => hashValues(senderId, msg, dateTime);
+  int get hashCode => Object.hash(senderId, msg, dateTime);
 }

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:receive_whatsapp_chat/share/share.dart';
-import 'package:receive_whatsapp_chat/utils/zipUtils.dart';
+import 'package:receive_whatsapp_chat/utils/zip_utils.dart';
 import 'chat_analyzer/chat_analyzer.dart';
 import 'models/chat_content.dart';
 
@@ -25,9 +25,6 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// Can Receive the chat or not
   bool shareReceiveEnabled = false;
 
-  /// Save image paths
-  bool _allowReceiveWithMedia = false;
-
   /// StreamSubscription [_shareReceiveSubscription] for listener
   StreamSubscription? _shareReceiveSubscription;
 
@@ -40,16 +37,6 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
     }
     enableShareReceiving();
     super.initState();
-  }
-
-  /// Enable [_allowReceiveWithMedia] to save the images paths
-  void enableReceivingChatWithMedia() {
-    _allowReceiveWithMedia = true;
-  }
-
-  /// Disable [shareReceiveEnabled]
-  void disableReceivingChatWithMedia() {
-    _allowReceiveWithMedia = false;
   }
 
   /// Enable the receiving

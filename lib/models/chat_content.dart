@@ -126,6 +126,6 @@ class ChatContent {
   }
 
   @override
-  int get hashCode => hashValues(chatName, sizeOfChat, members, messages,
+  int get hashCode => Object.hash(chatName, sizeOfChat, members, messages,
       indexesPerMember, msgsPerMember, imagesPaths);
 }
