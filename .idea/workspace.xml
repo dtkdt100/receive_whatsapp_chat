@@ -22,16 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3ad0088-14dd-4d89-aebd-b78a3780c5d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/chat_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/chat_content.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/message_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/message_content.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/receive_whatsapp_chat.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/zipUtils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/zip_utils.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/receive_whatsapp_chat_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/receive_whatsapp_chat_test.dart" afterDir="false" />
-    </list>
+    <list default="true" id="a3ad0088-14dd-4d89-aebd-b78a3780c5d1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +73,7 @@
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/dolev/git/receive_whatsapp_chat",
+    "last_opened_file_path": "C:/Users/dolev/git/Roulette-for-Whatsapp-new",
     "settings.editor.selected.configurable": "Settings.Markdown",
     "show.migrate.to.gradle.popup": "false"
   }

@@ -246,10 +246,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: "075f927ebbab4262ace8d0b283929ac5410c0ac4e7fc123c76429564facfb757"
+      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.8"
   process:
     dependency: transitive
     description:
@@ -262,17 +262,17 @@ packages:
     dependency: transitive
     description:
       name: receive_sharing_intent
-      sha256: fcf167ad5aed85937c42d985dc31c7e50dbb3cf97dc5063a2bcfd26147023b34
+      sha256: f127989f8662ea15e193bd1e10605e5a0ab6bb92dffd51f3ce002feb0ce24c93
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.8"
+    version: "1.8.0"
   receive_whatsapp_chat:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.1.4"
+    version: "0.1.5"
   sky_engine:
     dependency: transitive
     description: flutter
