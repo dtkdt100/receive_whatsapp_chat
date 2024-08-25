@@ -24,7 +24,7 @@ class ChatAnalyzer {
   /// The function spilt the name of the chat.
   static String _getChatName(String name) {
     if (Platform.isAndroid) {
-      return name.split('.txt').first.split('WhatsApp Chat with ').last;
+      return name.split('WhatsApp Chat with ').last;
     } else {
       return name.split('.zip').first.split('WhatsApp Chat - ').last;
     }

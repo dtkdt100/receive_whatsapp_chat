@@ -48,67 +48,10 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
 
     public static final String STREAM = "plugins.flutter.io/receiveshare";
 
-    private static final String CHANNEL = "com.whatsapp.chat/chat";
-
     private EventChannel.EventSink eventSink = null;
     private boolean inited = false;
     private List<Intent> backlog = new ArrayList<>();
     private boolean ignoring = false;
-
-    @SuppressLint("NewApi")
-    @Override
-    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        super.configureFlutterEngine(flutterEngine);
-        new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
-                (call, result) -> {
-                    if (call.method.equals("analyze")) {
-                        String URL = call.argument("data");
-                        Uri students = Uri.parse(URL);
-                        Cursor c = getContentResolver().query(students, null, null, null, null);
-
-                        try {
-                            final InputStream openInputStream = getContentResolver().openInputStream(students);
-                            BufferedReader r = new BufferedReader(new InputStreamReader(openInputStream));
-                            assert c != null;
-                            c.moveToFirst();
-                            ArrayList<String> arrayList = new ArrayList<String>();
-                            arrayList.add(c.getString(0));
-                            String line;
-                            while ((line = r.readLine()) != null) {
-                                arrayList.add(line);
-                            }
-                            result.success(arrayList);
-                        } catch (Exception e) {
-                            ArrayList arrayList = new ArrayList();
-                            Log.d("Error:", String.valueOf(e));
-                            result.success(arrayList);
-                        }
-                    } else if (call.method.equals("getImage")) {
-                        String URL = call.argument("data");
-                        Uri students = Uri.parse(URL);
-                        try {
-                            final InputStream openInputStream = getContentResolver().openInputStream(students);
-                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                            int nRead;
-                            byte[] data = new byte[16384];
-                            while (true) {
-                                assert openInputStream != null;
-                                if ((nRead = openInputStream.read(data, 0, data.length)) == -1)
-                                    break;
-                                buffer.write(data, 0, nRead);
-                            }
-                            result.success(buffer.toByteArray());
-
-                        } catch (Exception e) {
-                            Log.d("Error:", String.valueOf(e));
-                            result.success(null);
-                        }
-                    } else {
-                        result.notImplemented();
-                    }
-                }
-        );
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

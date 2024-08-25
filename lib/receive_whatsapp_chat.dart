@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
-import 'package:receive_whatsapp_chat/ios/ios_utils.dart';
 import 'package:receive_whatsapp_chat/share/share.dart';
+import 'package:receive_whatsapp_chat/utils/zipUtils.dart';
+import 'package:uri_to_file/uri_to_file.dart';
 import 'chat_analyzer/chat_analyzer.dart';
 import 'models/chat_content.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 
 export 'models/models.dart';
 
@@ -20,7 +23,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
 
   /// Method Channel [methodChannel] for analyzing the chat
   static const MethodChannel methodChannel =
-  MethodChannel('com.whatsapp.chat/chat');
+      MethodChannel('com.whatsapp.chat/chat');
 
   /// Can Receive the chat or not
   bool shareReceiveEnabled = false;
@@ -78,7 +81,7 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// Receive the share Android - in our case we receive a zip file url: file:///private/var/mobile/Containers/Shared/AppGroup/...
   void _receiveShareInternalIOS(List<SharedMediaFile> shared) {
     debugPrint("Share received - $shared");
-    if (shared.isNotEmpty) receiveShareIOS(shared[0].path);
+    if (shared.isNotEmpty) receiveShareIOS(shared);
   }
 
   /// Receive the share Android - in our case we receive a content url: content://com.whatsapp.provider.media/export_chat/972537739211@s.whatsapp.net/e26757...
@@ -89,11 +92,11 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
 
   /// In iOS WhatsApp sends us a zip file.
   /// We need to unzip the file, read it and sent it to the [ChatAnalyzer.analyze]
-  Future<void> receiveShareIOS(String path) async {
-    path = Uri.decodeFull(path);
+  Future<void> receiveShareIOS(List<SharedMediaFile> shared) async {
+    String path = Uri.decodeFull(shared[0].path);
     if (!isWhatsAppChatUrl(path)) throw Exception("Not a WhatsApp chat url");
-    if (!await IOSUtils.unzip(path)) throw Exception("Unzip failed");
-    List<String> chat = await IOSUtils.readFile();
+    if (!await ZipUtils.iosUnzip(path)) throw Exception("Unzip failed");
+    List<String> chat = await ZipUtils.readFile("_chat.txt");
     chat.insert(0, path.split('/').last);
     receiveChatContent(ChatAnalyzer.analyze(chat));
   }
@@ -102,23 +105,11 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// Sent it to analyze at [ChatAnalyzer.analyze].
   /// Calling an abstract function [receiveChatContent] with [ChatContent] variable.
   Future<void> receiveShareAndroid(Share shared) async {
-    final url = shared.shares[0].path;
-    if (!isWhatsAppChatUrl(url)) throw Exception("Not a WhatsApp chat url");
-    List<String> chat = List<String>.from(await methodChannel
-        .invokeMethod("analyze", <String, dynamic>{"data": url}));
-
-    receiveChatContent(ChatAnalyzer.analyze(chat, _getImagePaths(shared)));
-  }
-
-  List<String>? _getImagePaths(Share shared) {
-    if (!_allowReceiveWithMedia) return null;
-    List<String> ret = [];
-    for (Share file in shared.shares) {
-      if (file.path.endsWith(".jpg")) {
-        ret.add(file.path);
-      }
-    }
-    return ret;
+    final path = shared.path;
+    if (!await ZipUtils.androidUnzip(path)) throw Exception("Unzip failed");
+    List<String> chat = await ZipUtils.readFile("${shared.text}.txt");
+    chat.insert(0, shared.text);
+    receiveChatContent(ChatAnalyzer.analyze(chat));
   }
 
   /// Check if the url is a WhatsApp chat url

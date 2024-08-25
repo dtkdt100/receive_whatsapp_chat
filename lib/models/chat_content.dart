@@ -33,14 +33,14 @@ class ChatContent {
   final List<String>? imagesPaths;
 
   Map<String, dynamic> toJson() => {
-    'chatName': chatName,
-    'sizeOfChat': sizeOfChat,
-    'names': members,
-    'msgContents': _listOfMessageContentsToJson(messages),
-    'msgsPerPerson': msgsPerMember,
-    'indexesPerPerson': indexesPerMember,
-    'imagesPaths': imagesPaths,
-  };
+        'chatName': chatName,
+        'sizeOfChat': sizeOfChat,
+        'names': members,
+        'msgContents': _listOfMessageContentsToJson(messages),
+        'msgsPerPerson': msgsPerMember,
+        'indexesPerPerson': indexesPerMember,
+        'imagesPaths': imagesPaths,
+      };
 
   /// We should parse also all the [MessageContent] toJson
   static List<Map<String, dynamic>> _listOfMessageContentsToJson(
@@ -73,7 +73,7 @@ class ChatContent {
       indexesPerMember: chatMap['indexesPerPerson'] == null
           ? {}
           : _toIndexesPerMember(
-          Map<String, dynamic>.from(chatMap['indexesPerPerson'])),
+              Map<String, dynamic>.from(chatMap['indexesPerPerson'])),
     );
   }
 
@@ -89,6 +89,7 @@ class ChatContent {
     if (imagesPaths == null) {
       return null;
     }
+
     /// The file name is like this: "IMG-20220609-WA0012.jpg (file attached)"
     imageName = imageName.split(' ').first;
     String? path = imagesPaths
@@ -100,24 +101,25 @@ class ChatContent {
   }
 
   static Future<Image?> getImageByPath(String path) async {
-    final bytes = Uint8List.fromList(await ReceiveWhatsappChat.methodChannel
-        .invokeMethod("getImage", <String, dynamic>{"data": path}));
-    final codec = await instantiateImageCodec(bytes);
-    final frameInfo = await codec.getNextFrame();
-    return frameInfo.image;
+    return null;
+    // final bytes = Uint8List.fromList(await ReceiveWhatsappChat.methodChannel
+    //     .invokeMethod("getImage", <String, dynamic>{"data": path}));
+    // final codec = await instantiateImageCodec(bytes);
+    // final frameInfo = await codec.getNextFrame();
+    // return frameInfo.image;
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ChatContent &&
-              runtimeType == other.runtimeType &&
-              chatName == other.chatName &&
-              sizeOfChat == other.sizeOfChat &&
-              listEquals<String>(members, other.members) &&
-              listEquals<MessageContent>(messages, other.messages) &&
-              indexesPerMember == other.indexesPerMember &&
-              msgsPerMember == other.msgsPerMember;
+      other is ChatContent &&
+          runtimeType == other.runtimeType &&
+          chatName == other.chatName &&
+          sizeOfChat == other.sizeOfChat &&
+          listEquals<String>(members, other.members) &&
+          listEquals<MessageContent>(messages, other.messages) &&
+          indexesPerMember == other.indexesPerMember &&
+          msgsPerMember == other.msgsPerMember;
 
   @override
   String toString() {
