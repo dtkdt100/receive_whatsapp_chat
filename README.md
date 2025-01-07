@@ -30,6 +30,9 @@ public class MainActivity extends FlutterShareReceiverActivity {
 For Kotlin projects: please add the following to `android/app/main/kotlin/.../MainActivity.kt`.
 
 ```kotlin
+//TODO: Replace <package_name> with package from AndroidManifest.xml
+package <package_name> 
+
 import android.os.Bundle
 import com.whatsapp.receive_whatsapp_chat.FlutterShareReceiverActivity
 import io.flutter.embedding.engine.FlutterEngine
