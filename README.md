@@ -9,7 +9,7 @@ A flutter plugin that enables flutter apps to receive chats from Whatsapp.
 <details>
     <summary>Android</summary>
 
-Please add the following to `android/app/main/java/.../MainActivity.java`.
+For Java projects: please add the following to `android/app/main/java/.../MainActivity.java`.
 
 ```java
 import android.os.Bundle;
@@ -25,6 +25,28 @@ public class MainActivity extends FlutterShareReceiverActivity {
         GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
     }
 }
+```
+
+For Kotlin projects: please add the following to `android/app/main/kotlin/.../MainActivity.kt`.
+
+```kotlin
+import android.os.Bundle
+import com.whatsapp.receive_whatsapp_chat.FlutterShareReceiverActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugins.GeneratedPluginRegistrant
+
+class MainActivity : FlutterShareReceiverActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        // Register plugins with FlutterEngine
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
+        super.configureFlutterEngine(flutterEngine)
+    }
+}
+
 ```
 
 Note: If you have a problem with the compilation (kotlin version error), please go to the package pubspec.ymal and uncomment this:
