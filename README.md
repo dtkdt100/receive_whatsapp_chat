@@ -518,7 +518,7 @@ end
 #### 3. Add Runner and Share Extension in the same group
 
 * Go to the Capabilities tab and switch on the App Groups switch for both targets.
-* Add a new group and name it as you want. For example `group.YOUR_HOST_APP_BUNDLE_IDENTIFIER` in my case `group.com.kasem.sharing`
+* Add a new group and name it as you want. For example `group.YOUR_HOST_APP_BUNDLE_IDENTIFIER` in my case `group.com.whatsapp.receiveWhatsappChatExample`
 * Add User-defined(`Build Settings -> +`) string `CUSTOM_GROUP_ID` in *BOTH* Targets: `Runner` and `Share Extension` and set value to group id created above. You can use different group ids depends on flavor schemes
 </details>
 

@@ -1,6 +1,6 @@
 name: receive_whatsapp_chat
 description: A flutter plugin that enables flutter apps to receive exported chats from WhatsApp.
-version: 0.1.6
+version: 0.1.7
 homepage: https://github.com/dtkdt100/receive_whatsapp_chat
 
 environment:
@@ -8,20 +8,20 @@ environment:
   flutter: '>=3.3.0'
 
 dependencies:
-  path_provider: ^2.1.1
-  collection: ^1.17.2
-  flutter_archive: ^5.0.0
-  receive_sharing_intent: ^1.8.0
-  uri_to_file: ^1.0.0
-#    git:
-#      url: https://github.com/AyushmanG26/receive_sharing_intent.git
+  path_provider: ^2.1.5
+  collection: ^1.19.1
+  flutter_archive: ^6.0.3
+  receive_sharing_intent: ^1.8.1
+  uri_to_file:
+    git:
+      url: https://github.com/dtkdt100/uri-to-file.git
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

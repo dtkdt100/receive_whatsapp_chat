@@ -31,21 +31,29 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// We need to enable [shareReceiveEnabled] at first
   @override
   void initState() {
+    super.initState();
+
     /// For sharing images coming from outside the app while the app is closed
     if (Platform.isIOS) {
-      ReceiveSharingIntent.instance.getInitialMedia().then(_receiveShareInternalIOS);
+      ReceiveSharingIntent.instance
+          .getInitialMedia()
+          .then(_receiveShareInternalIOS);
     }
-    enableShareReceiving();
-    super.initState();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      enableShareReceiving();
+    });
   }
 
   /// Enable the receiving
   void enableShareReceiving() {
+    if (shareReceiveEnabled) return;
     if (Platform.isAndroid) {
       _shareReceiveSubscription ??=
           stream.receiveBroadcastStream().listen(_receiveShareInternalAndroid);
     } else if (Platform.isIOS) {
-      _shareReceiveSubscription ??= ReceiveSharingIntent.instance.getMediaStream()
+      _shareReceiveSubscription ??= ReceiveSharingIntent.instance
+          .getMediaStream()
           .listen(_receiveShareInternalIOS);
     }
     shareReceiveEnabled = true;

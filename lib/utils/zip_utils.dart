@@ -40,7 +40,8 @@ class ZipUtils {
     String path = '${(await getTemporaryDirectory()).path}/unzipped/$fileName';
     File file = File(path);
     List<String> lines = await file.readAsLines();
-    await _deleteDir(Directory("${(await getTemporaryDirectory()).path}/unzipped"));
+    await _deleteDir(
+        Directory("${(await getTemporaryDirectory()).path}/unzipped"));
     return lines;
   }
 

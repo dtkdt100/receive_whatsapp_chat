@@ -130,8 +130,6 @@ class Share {
 
   @override
   String toString() {
-    return 'Share{${isNull
-            ? 'null }'
-            : 'mimeType: $mimeType, title: $title, text: $text, path: $path, shares: $shares}'}';
+    return 'Share{${isNull ? 'null }' : 'mimeType: $mimeType, title: $title, text: $text, path: $path, shares: $shares}'}';
   }
 }
