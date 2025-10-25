@@ -1,3 +1,7 @@
+## 0.1.8
+
+* Reformat dart files
+
 ## 0.1.7
 
 * Version update (dart sdk, flutter sdk, kotlin, gradle)
