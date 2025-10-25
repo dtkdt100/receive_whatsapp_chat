@@ -288,15 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.6"
-  uri_to_file:
+  uri_to_file_new:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: dc9a00bd76239282f0ff1b9b91ac95a8c939d6e7
-      url: "https://github.com/dtkdt100/uri-to-file.git"
-    source: git
-    version: "1.0.0"
+      name: uri_to_file_new
+      sha256: "02659c1cd128aa6b800d15d806c71152805a1c0a7df48ada2b2c7d2ca8fce598"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   vector_math:
     dependency: transitive
     description:

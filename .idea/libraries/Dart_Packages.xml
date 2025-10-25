@@ -284,10 +284,10 @@
             </list>
           </value>
         </entry>
-        <entry key="uri_to_file">
+        <entry key="uri_to_file_new">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/git/uri-to-file-dc9a00bd76239282f0ff1b9b91ac95a8c939d6e7//lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/uri_to_file_new-1.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -324,7 +324,6 @@
       </option>
     </properties>
     <CLASSES>
-      <root url="file://$USER_HOME$/.pub-cache/git/uri-to-file-dc9a00bd76239282f0ff1b9b91ac95a8c939d6e7//lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/async-2.11.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/async-2.13.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
@@ -370,6 +369,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/term_glyph-1.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/test_api-0.7.6/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uri_to_file_new-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vm_service-13.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vm_service-15.0.2/lib" />

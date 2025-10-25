@@ -12,9 +12,7 @@ dependencies:
   collection: ^1.19.1
   flutter_archive: ^6.0.3
   receive_sharing_intent: ^1.8.1
-  uri_to_file:
-    git:
-      url: https://github.com/dtkdt100/uri-to-file.git
+  uri_to_file_new: ^1.0.1
   flutter:
     sdk: flutter
 

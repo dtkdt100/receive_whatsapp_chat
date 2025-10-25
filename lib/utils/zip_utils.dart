@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uri_to_file/uri_to_file.dart';
+import 'package:uri_to_file_new/uri_to_file.dart';
 
 class ZipUtils {
   /// Android content provider has to resolve with uri_to_file package
