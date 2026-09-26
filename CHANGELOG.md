@@ -1,15 +1,33 @@
 ## 0.1.9
 
-* Add Swift Package Manager support on iOS
-* Remove legacy Kotlin Gradle configuration (Android plugin is Java-only)
-* Fix static analysis issues
+### Fixes
+
 * Fix apps failing to build: replace the broken `uri_to_file_new` dependency with a built-in Android method
 * Forward the read permission for the shared chat explicitly (required from Android 18)
 * Recognize WhatsApp's newer `export_chat_folder` Android uri in `isWhatsAppChatUrl`
+* iOS: accept shared chat paths without the `file://` scheme (`receive_sharing_intent` strips it)
+* iOS: don't percent-decode the already-decoded path (failed on chat names containing `%`)
+* Fix a crash on very short messages (only the leading U+200E mark is stripped now)
+* Attachment lines that start with U+200E now get a `dateTime`
+* A line that fails to parse is skipped instead of failing the whole chat
+* Throw a `FormatException` instead of a `RangeError` for unrecognized chat formats
+
+### Platform
+
+* Add Swift Package Manager support on iOS (CocoaPods still supported)
+* Remove legacy Kotlin Gradle configuration (Android plugin is Java-only)
+
+### Logging
+
 * Add debug-only error logging (prefixed `[receive_whatsapp_chat]`) for failed shares, unzip, missing chat file and unparsed chat formats; chat content is masked in logs
 * Stop logging chat names and shared content
-* Throw a `FormatException` instead of a `RangeError` for unrecognized chat formats
+
+### Other
+
+* Fix static analysis issues
 * Redesigned example app with a sample chat, chat stats and a message view
+* Example iOS Share Extension now uses `RSIShareViewController` from `receive_sharing_intent`
+* README: simpler, up-to-date setup instructions
 
 ## 0.1.8
 
