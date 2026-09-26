@@ -106,6 +106,17 @@ class ChatInfoUtilities {
 
   /// Receive a String line and return from it [MessageContent]
   static MessageContent _getMsgContentFromStringLine(String line) {
+    try {
+      return _parseMsgContent(line);
+    } catch (e, st) {
+      // One unexpected line should not fail the whole chat
+      Logger.error(
+          'Could not parse line "${Logger.shape(line)}", skipping it', e, st);
+      return MessageContent(senderId: null, msg: null);
+    }
+  }
+
+  static MessageContent _parseMsgContent(String line) {
     MessageContent nullMessageContent =
         MessageContent(senderId: null, msg: null);
 

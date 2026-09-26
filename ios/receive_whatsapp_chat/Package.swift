@@ -11,11 +11,15 @@ let package = Package(
     products: [
         .library(name: "receive-whatsapp-chat", targets: ["receive_whatsapp_chat"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "FlutterFramework", path: "../FlutterFramework")
+    ],
     targets: [
         .target(
             name: "receive_whatsapp_chat",
-            dependencies: [],
+            dependencies: [
+                .product(name: "FlutterFramework", package: "FlutterFramework")
+            ],
             resources: [],
             cSettings: [
                 .headerSearchPath("include/receive_whatsapp_chat")

@@ -99,7 +99,16 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
   /// In iOS WhatsApp sends us a zip file.
   /// We need to unzip the file, read it and sent it to the [ChatAnalyzer.analyze]
   Future<void> receiveShareIOS(List<SharedMediaFile> shared) async {
-    String path = Uri.decodeFull(shared[0].path);
+    // receive_sharing_intent already percent-decodes the path, so decoding
+    // again throws on names that contain '%'
+    String path = shared[0].path;
+    if (!File(path.replaceFirst("file://", "")).existsSync()) {
+      try {
+        path = Uri.decodeFull(path);
+      } on ArgumentError {
+        // keep the raw path
+      }
+    }
     if (!isWhatsAppChatUrl(path)) {
       Logger.error('Shared file is not a WhatsApp chat export '
           '(${Logger.shape(path, 80)})');
@@ -137,8 +146,10 @@ abstract class ReceiveWhatsappChat<T extends StatefulWidget> extends State<T> {
       return url
           .startsWith("content://com.whatsapp.provider.media/export_chat");
     } else if (Platform.isIOS) {
+      // receive_sharing_intent strips the file:// scheme
       return url
-          .startsWith("file:///private/var/mobile/Containers/Shared/AppGroup/");
+          .replaceFirst("file://", "")
+          .startsWith("/private/var/mobile/Containers/Shared/AppGroup/");
     }
     return false;
   }

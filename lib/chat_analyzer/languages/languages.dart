@@ -52,7 +52,8 @@ class Languages {
     /// In iOS the spacial messages it a little bit different
     if (Platform.isIOS) {
       text = text.replaceAll('.', '');
-      text = text.replaceRange(0, 1, '');
+      // special messages start with a left-to-right mark (U+200E)
+      text = text.replaceFirst(RegExp('^\u200E'), '');
     }
     return hasMatch(text, youDeletedThisMessage) ||
         hasMatch(text, mediaOmitted) ||
