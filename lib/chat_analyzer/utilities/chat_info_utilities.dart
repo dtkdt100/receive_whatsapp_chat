@@ -53,11 +53,9 @@ class ChatInfoUtilities {
       }
     }
 
-    names.remove(null);
     Map<String, List<int>> indexesPerMember = {};
     Map<String, int> msgsPerPerson = {};
 
-    names.remove(null);
     for (int i = 0; i < names.length; i++) {
       msgsPerPerson[names[i]] = countNameMsgs[i].length;
       indexesPerMember[names[i]] = countNameMsgs[i];

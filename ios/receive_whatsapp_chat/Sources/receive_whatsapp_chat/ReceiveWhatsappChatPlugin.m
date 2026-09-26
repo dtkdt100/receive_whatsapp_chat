@@ -1,4 +1,4 @@
-#import "ReceiveWhatsappChatPlugin.h"
+#import "./include/receive_whatsapp_chat/ReceiveWhatsappChatPlugin.h"
 
 @implementation ReceiveWhatsappChatPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {

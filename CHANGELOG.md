@@ -1,3 +1,9 @@
+## 0.1.9
+
+* Add Swift Package Manager support on iOS
+* Remove legacy Kotlin Gradle configuration (Android plugin is Java-only)
+* Fix static analysis issues
+
 ## 0.1.8
 
 * Reformat dart files
