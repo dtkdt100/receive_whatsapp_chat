@@ -4,14 +4,14 @@ import 'package:receive_whatsapp_chat/chat_analyzer/utilities/fix_dates_utilitie
 void main() {
   group('dateStringOrganization', () {
     test('Android dates', () {
-      expect(FixDateUtilities.dateStringOrganization('25/04/2022'),
-          '2022-04-25');
+      expect(
+          FixDateUtilities.dateStringOrganization('25/04/2022'), '2022-04-25');
       expect(FixDateUtilities.dateStringOrganization('5.4.22'), '2022-04-05');
     });
 
     test('iOS dates', () {
-      expect(FixDateUtilities.dateStringOrganization('[25/04/2022'),
-          '2022-04-25');
+      expect(
+          FixDateUtilities.dateStringOrganization('[25/04/2022'), '2022-04-25');
     });
 
     test('iOS attachment lines start with a left-to-right mark', () {
