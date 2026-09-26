@@ -35,6 +35,10 @@ public class ShareReceiverActivityWorker extends FlutterActivity {
         launchIntent.setAction(intent.getAction());
         launchIntent.setType(intent.getType());
         launchIntent.putExtras(intent);
+        // Forward read access to the shared content:// uri explicitly.
+        // Android 18+ no longer grants it implicitly for ACTION_SEND.
+        launchIntent.setClipData(intent.getClipData());
+        launchIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         startActivity(launchIntent);
         finish();

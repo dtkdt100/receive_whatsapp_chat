@@ -2,6 +2,8 @@ import 'package:receive_whatsapp_chat/chat_analyzer/utilities/chat_info_utilitie
 import 'package:receive_whatsapp_chat/models/chat_content.dart';
 import 'dart:io';
 
+import 'package:receive_whatsapp_chat/utils/logger.dart';
+
 class ChatAnalyzer {
   /// Analyze [List<String>] to [ChatContent]
   static ChatContent analyze(List<String> chat, [List<String>? imagePaths]) {
@@ -24,6 +26,11 @@ class ChatAnalyzer {
   /// The function spilt the name of the chat.
   static String _getChatName(String name) {
     if (Platform.isAndroid) {
+      if (!name.contains('WhatsApp Chat with ')) {
+        // Non-English phones use a translated prefix, see [Languages].
+        Logger.warning('Unknown chat name prefix, using the full name: '
+            '"${Logger.shape(name)}"');
+      }
       return name.split('WhatsApp Chat with ').last;
     } else {
       return name.split('.zip').first.split('WhatsApp Chat - ').last;

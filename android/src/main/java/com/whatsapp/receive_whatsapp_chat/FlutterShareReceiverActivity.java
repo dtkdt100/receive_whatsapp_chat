@@ -107,9 +107,8 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             String sharedTitle = intent.getStringExtra(Intent.EXTRA_SUBJECT);
             if ("text/plain".equals(type)) {
-                Log.i(getClass().getSimpleName(), "receiving shared title: " + sharedTitle);
+                Log.i(getClass().getSimpleName(), "receiving shared text");
                 String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-                Log.i(getClass().getSimpleName(), "receiving shared text: " + sharedText);
                 if (eventSink != null) {
                     Map<String, String> params = new HashMap<>();
                     params.put(TYPE, type);
@@ -122,9 +121,8 @@ public class FlutterShareReceiverActivity extends FlutterActivity {
                     backlog.add(intent);
                 }
             } else {
-                Log.i(getClass().getSimpleName(), "receiving shared title: " + sharedTitle);
+                Log.i(getClass().getSimpleName(), "receiving shared file of type " + type);
                 Uri sharedUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-                Log.i(getClass().getSimpleName(), "receiving shared file: " + sharedUri);
                 if (eventSink != null) {
                     Map<String, String> params = new HashMap<>();
                     params.put(TYPE, type);

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:receive_whatsapp_chat/chat_analyzer/languages/languages.dart';
 import 'package:receive_whatsapp_chat/models/message_content.dart';
+import 'package:receive_whatsapp_chat/utils/logger.dart';
 
 import '../../models/chat_content.dart';
 import 'fix_dates_utilities.dart';
@@ -27,6 +28,10 @@ class ChatInfoUtilities {
     List<MessageContent> msgContents = [];
     List<String> lines = [];
     bool first = true;
+    int skippedMessages = 0;
+    int messagesWithoutDate = 0;
+    String? firstSkippedLine;
+    String? firstLineWithoutDate;
 
     for (int i = isAndroid ? 1 : 2; i < chat.length; i++) {
       if (_regExp.hasMatch(chat[i])) {
@@ -34,6 +39,13 @@ class ChatInfoUtilities {
         if (!first) {
           MessageContent msgContent = _getMsgContentFromStringLine(
               lines[lines.length - (isAndroid ? 1 : 2)]);
+          if (msgContent.senderId == null) {
+            skippedMessages++;
+            firstSkippedLine ??= lines[lines.length - (isAndroid ? 1 : 2)];
+          } else if (msgContent.dateTime == null) {
+            messagesWithoutDate++;
+            firstLineWithoutDate ??= lines[lines.length - (isAndroid ? 1 : 2)];
+          }
           if (!names.contains(msgContent.senderId) &&
               msgContent.senderId != null) {
             names.add(msgContent.senderId!);
@@ -48,9 +60,30 @@ class ChatInfoUtilities {
           }
         }
         first = false;
+      } else if (lines.isEmpty) {
+        // A continuation line before any message start: the date format of
+        // this export is probably not recognized by [_regExp].
+        Logger.error('Line ${i + 1} does not start with a recognized date: '
+            '"${Logger.shape(chat[i])}"');
+        throw FormatException('Unrecognized WhatsApp chat format', chat[i]);
       } else {
         lines[lines.length - 1] += "\n${chat[i]}";
       }
+    }
+
+    if (msgContents.isEmpty) {
+      Logger.error('No messages parsed from ${chat.length} lines. '
+          'First lines: ${chat.skip(isAndroid ? 1 : 2).take(3).map((l) => '"${Logger.shape(l)}"').join(', ')}');
+    }
+    if (firstSkippedLine != null) {
+      // Expected for system messages ("Messages are end-to-end encrypted")
+      // in known languages; a high count means an unsupported format.
+      Logger.warning('Skipped $skippedMessages of ${lines.length} lines '
+          '(system messages or unknown format), e.g. "${Logger.shape(firstSkippedLine)}"');
+    }
+    if (firstLineWithoutDate != null) {
+      Logger.warning('$messagesWithoutDate messages have no dateTime '
+          '(date format not parsed), e.g. "${Logger.shape(firstLineWithoutDate)}"');
     }
 
     Map<String, List<int>> indexesPerMember = {};

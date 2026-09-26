@@ -1,15 +1,34 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uri_to_file_new/uri_to_file.dart';
+
+import 'logger.dart';
 
 class ZipUtils {
-  /// Android content provider has to resolve with uri_to_file package
+  static const MethodChannel _channel = MethodChannel('com.whatsapp.chat/chat');
+
+  /// Android content provider uri has to be copied to a local file first
   static Future<bool> androidUnzip(String zipPath,
       [Directory? destination]) async {
-    return await _unzip(await toFile(zipPath), destination);
+    final String? path;
+    try {
+      path = await _channel
+          .invokeMethod<String>('contentUriToFile', {'uri': zipPath});
+    } on PlatformException catch (e, st) {
+      Logger.error(
+          'Could not copy the shared content uri to a file '
+          '(code: ${e.code}, uri scheme: ${Uri.tryParse(zipPath)?.scheme})',
+          e.message,
+          st);
+      return false;
+    }
+    if (path == null) {
+      Logger.error('contentUriToFile returned null for the shared uri');
+      return false;
+    }
+    return await _unzip(File(path), destination);
   }
 
   /// iOS has to resolve with file://
@@ -26,8 +45,13 @@ class ZipUtils {
       await ZipFile.extractToDirectory(
           zipFile: zipFile, destinationDir: destination);
       return true;
-    } catch (e) {
-      debugPrint("Error unzipping ${zipFile.path}: $e");
+    } catch (e, st) {
+      final exists = zipFile.existsSync();
+      Logger.error(
+          'Unzip failed (file exists: $exists'
+          '${exists ? ', size: ${zipFile.lengthSync()} bytes' : ''})',
+          e,
+          st);
       return false;
     }
   }
@@ -39,7 +63,18 @@ class ZipUtils {
     // with them
     String path = '${(await getTemporaryDirectory()).path}/unzipped/$fileName';
     File file = File(path);
+    if (!file.existsSync()) {
+      // The expected name depends on the WhatsApp version and phone language,
+      // so log what the export actually contains.
+      final files = Directory(file.parent.path)
+          .listSync()
+          .map((f) => f.path.split('/').last)
+          .toList();
+      Logger.error('Chat file "${Logger.shape(fileName)}" not found in the '
+          'export. Files in the export: ${files.map(Logger.shape).toList()}');
+    }
     List<String> lines = await file.readAsLines();
+    if (lines.isEmpty) Logger.warning('Chat file "$fileName" is empty');
     await _deleteDir(
         Directory("${(await getTemporaryDirectory()).path}/unzipped"));
     return lines;
